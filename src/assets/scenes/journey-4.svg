@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="-300 0 1200 600" fill="none">
+<title>川風の橋</title>
+<defs><linearGradient id="bank" x2="0" y2="1"><stop stop-color="#b6cca1"/><stop offset="1" stop-color="#83a477"/></linearGradient><linearGradient id="water" x2="0" y2="1"><stop stop-color="#a4c9c1"/><stop offset="1" stop-color="#719eaa"/></linearGradient><linearGradient id="deck" x2="0" y2="1"><stop stop-color="#c8af82"/><stop offset="1" stop-color="#ac8c61"/></linearGradient></defs>
+<path d="M-300 362Q-148 307 0 346Q96 311 193 342T385 334T600 329Q756 308 900 361V600H-300Z" fill="#c9d9c1"/>
+<path d="M-300 406Q-151 349 0 382Q135 353 251 378T467 366T600 381Q748 350 900 409V600H-300Z" fill="url(#bank)"/>
+<path d="M-300 456Q-151 412 0 442Q157 398 300 416T600 423Q746 411 900 452V563Q754 535 600 552Q465 517 318 539T0 548Q-149 527-300 565Z" fill="url(#water)"/>
+<g stroke="#d4e5d6" stroke-width="3" stroke-linecap="round" opacity=".65"><path d="M19 465Q62 456 111 462M98 493Q147 483 197 490M406 450Q452 444 486 448M465 493Q508 485 555 493M40 521H103M505 525H564"/></g>
+<path d="M258 399L340 398L446 600H142Z" fill="url(#deck)"/>
+<path d="M258 399L340 398L347 412L250 414Z" fill="#dbc399"/>
+<g stroke="#8e7959" stroke-width="3" opacity=".7"><path d="M244 427H355M230 450H368M216 476H382M199 506H398M181 540H415M161 576H434"/></g>
+<path d="M289 402L270 600M311 400L330 600" stroke="#e2c79b" stroke-width="2" opacity=".45"/>
+<g stroke="#9c825d" stroke-width="10" stroke-linecap="round"><path d="M250 398V352M229 440V383M200 494V427M158 574V492M347 399V352M371 442V385M402 497V429M442 576V493"/></g>
+<path d="M249 350L156 491M347 350L444 492" stroke="#bca074" stroke-width="12" stroke-linecap="round"/>
+<path d="M249 372L157 525M349 372L443 526" stroke="#9c845f" stroke-width="6" stroke-linecap="round"/>
+<path d="M229 384Q248 375 257 390Q249 398 230 389Q246 412 256 420L245 424Q237 412 227 389" fill="#c49375"/>
+<path d="M-300 437Q-144 384 0 413Q45 380 88 408Q125 377 165 408L191 427Q106 421 0 452Q-145 414-300 467Z" fill="#81a779"/><path d="M427 409Q469 375 511 402Q556 376 600 405Q756 382 900 435V465Q750 424 600 436Q513 418 411 430Z" fill="#87aa79"/>
+<g fill="#9fae93"><ellipse cx="84" cy="428" rx="26" ry="12"/><ellipse cx="111" cy="435" rx="15" ry="8"/><ellipse cx="519" cy="427" rx="28" ry="12"/><ellipse cx="550" cy="433" rx="16" ry="8"/></g>
+<g stroke="#668b5b" stroke-width="3" stroke-linecap="round"><path d="M50 443L43 408M50 443L56 416M568 447L576 412M568 447L560 419M74 581L63 550M74 581L83 556M521 582L532 550M521 582L512 559"/></g>
+<path d="M-300 584Q-145 531 0 566Q63 533 129 567L141 600H-300Z" fill="#8dab7a"/><path d="M460 600L473 562Q540 538 600 560Q755 528 900 585V600Z" fill="#90ad7d"/>
+<g opacity=".65"><path d="M65 348V324Q86 315 106 326V347" fill="#adb88d"/><path d="M65 327L85 312L107 328" fill="#b6aa85"/><path d="M54 350H120" stroke="#b0bc95" stroke-width="5"/></g>
+<ellipse cx="300" cy="590" rx="98" ry="8" fill="#6b6149" opacity=".16"/>
+</svg>

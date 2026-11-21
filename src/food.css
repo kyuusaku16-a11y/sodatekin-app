@@ -1,0 +1,96 @@
+.food-summary, .routine-meal { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 20px; }
+.meal-entry { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.meal-slots { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); border-bottom: 1px solid var(--line); }
+.meal-slots button { display: grid; place-content: center; gap: 2px; min-height: 60px; background: transparent; color: var(--text); border: 0; border-bottom: 3px solid transparent; }
+.meal-slots button[aria-pressed=true] { border-bottom-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.meal-slots button:focus-visible { outline-offset: -4px; }
+.meal-slots small { font-size: 12px; }
+.meal-entry-body { padding: 14px 16px; }
+.meal-entry-body h2 { font-size: 18px; margin: 0; }
+.meal-log-link { display: block; max-width: 100%; min-height: 44px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.meal-log-group { scroll-margin-top: 12px; margin-top: 16px; }
+.meal-log-group h3 { font-size: 16px; }
+.meal-log-group h3 small { color: var(--text-muted); font-weight: normal; margin-left: 4px; }
+.meal-entry-heading, .food-entry-tools { display: flex; align-items: center; justify-content: space-between; gap: 4px 8px; flex-wrap: wrap; }
+.meal-entry-heading { margin-bottom: 8px; }
+.meal-entry-heading button, .food-entry-tools button, .meal-history-link, .meal-repeat button { min-height: 44px; }
+.food-entry-tools .text-button { font-size: 13px; }
+#ingredient-link:empty { display: none; }
+#food-catalog summary, .routine-meal > summary, .meal-repeat summary { min-height: 44px; align-content: center; cursor: pointer; font-weight: 600; }
+#food-catalog summary { font-size: 14px; color: var(--accent); }
+.meal-repeat { margin-top: 10px; padding: 12px; background: var(--surface); border-radius: 10px; }
+.meal-repeat .routine-heading { flex-wrap: wrap; }
+.meal-repeat small { font-variant-numeric: tabular-nums; }
+.meal-repeat p { font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; margin: 4px 0 10px; }
+.routine-meal:has(> summary) { padding-block: 4px; }
+.routine-meal[open] { padding-bottom: 12px; }
+.meal-choice select { display: block; width: 100%; min-height: 44px; margin-block: 4px 10px; padding: 6px 9px; background: var(--surface); color: var(--text); font-size: 16px; border: 1px solid var(--line); border-radius: 8px; }
+[data-reuse-preview] { padding: 8px 12px; border-radius: 8px; background: var(--surface); }
+[data-reuse-preview] dl { margin: 0; }
+.food-summary { background: var(--surface); margin: 16px 0 22px; }
+.food-summary h2, .routine-heading h3, .portion-total-label { font-size: 16px; }
+.food-summary-heading { display: flex; align-items: center; justify-content: space-between; }
+.food-summary-heading .text-button { min-height: 44px; }
+#today-meals { scroll-margin-top: 12px; }
+.food-summary-heading small { color: var(--text-muted); font-size: 13px; margin-left: 6px; }
+.nutrient-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 12px; margin: 8px 0 0; }
+.nutrient-grid dt, .food-result-name small, .routine-meal p { color: var(--text-muted); font-size: 13px; }
+.nutrient-grid dd { margin: 0; font-variant-numeric: tabular-nums; font-size: 18px; font-weight: 700; overflow-wrap: anywhere; }
+.food-section { margin: 22px 0; }
+.custom-food-add, .ingredient-picker [data-new-ingredient] { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+.ingredient-picker { display: grid; gap: 10px; margin: 12px 0; }
+.ingredient-picker .field { display: grid; gap: 5px; min-width: 0; }
+.ingredient-picker input, .ingredient-picker select { width: 100%; min-width: 0; min-height: 44px; font-size: 16px; }
+.ingredient-picker [hidden], .ingredient-picker [data-preview]:empty { display: none; }
+.ingredient-picker [data-more], #ingredient-link button { justify-self: start; min-height: 44px; }
+.food-filters { margin: 10px 0; }
+.food-filters button { min-height: 44px; }
+.food-section .section-heading h2 small { color: var(--text-muted); font-size: 13px; white-space: nowrap; }
+.routine-heading, .food-result, .food-buttons, .food-search, .portion-field, .set-choice { display: flex; align-items: center; gap: 10px; }
+.routine-heading, .food-result, .portion-field, .set-choice { justify-content: space-between; }
+.routine-meal + .routine-meal { margin-top: 8px; }
+.routine-meal .food-buttons { margin-top: 12px; }
+.routine-heading h3, .routine-meal p, .food-result-name, .set-choice label, .portion-field span, #set-selection { min-width: 0; overflow-wrap: anywhere; }
+.food-search { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; }
+.view-food .food-search input[type=search], #set-form .food-search input[type=search] { border: none; background: transparent; width: 100%; min-width: 0; min-height: 44px; color: var(--text); font-size: 16px; }
+.food-result { padding: 8px 2px; border-bottom: 1px solid var(--line); }
+.food-result-name { display: grid; }
+.food-home-tag { display: inline-block; padding: 0 0.4em; border: 1px solid var(--line); border-radius: 0.35em; }
+.food-buttons { flex-wrap: wrap; }
+.food-result .food-buttons { flex: 0 0 auto; gap: 4px; }
+.food-buttons button, .routine-heading button, #food-results > button, .food-section .section-heading button { min-height: 44px; }
+.portion-field, .set-choice { padding: 6px 0; gap: 8px; }
+.portion-field select, .set-choice select { max-width: 60%; }
+.portion-field select, .set-choice select, .food-nutrition-fields input, #food-form input[name=name], #food-form input[name=amount] { border: 1px solid var(--line); border-radius: 8px; min-height: 44px; padding: 6px 9px; font-size: 16px; color: var(--text); background: var(--surface); }
+.food-nutrition-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px 12px; margin-top: 10px; }
+#food-form .field input { display: block; width: 100%; margin-top: 4px; }
+.food-details { margin: 12px 0; }
+.food-details summary { cursor: pointer; padding: 10px 0; font-size: 14px; }
+.food-details > .field { margin: 6px 0 12px; }
+.portion-total-label { margin-top: 12px; }
+.set-choices { max-height: 40vh; overflow: auto; border-bottom: 1px solid var(--line); }
+.set-choice label { flex: 1; margin: 0; min-height: 44px; }
+.set-choice select { font-size: 16px; }
+.set-choice[hidden], .set-choice select[hidden] { display: none; }
+#food-form-preview, #portion-preview { background: var(--surface); padding: 8px 12px; margin: 8px 0; border-radius: 8px; }
+#food-form-preview .nutrient-grid, #portion-preview .nutrient-grid { margin: 0; }
+@media (max-width: 600px) {
+  .nutrient-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .food-summary, .routine-meal { padding: 12px 14px; }
+  .food-result .food-buttons .button { padding-inline: 9px; }
+  .food-result .food-buttons .text-button { font-size: 12px; padding-inline: 4px; }
+}
+
+.food-start > .text-button { margin-top: 6px; min-height: 44px; }
+.photo-source, .photo-portion { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.photo-source button { flex: 1; }
+.photo-preview { display: block; width: 100%; max-height: 160px; object-fit: contain; margin: 12px 0; border-radius: 10px; background: var(--bg); }
+.photo-preview[hidden], #meal-photo-form[hidden] { display: none; }
+.photo-status { margin: 12px 0; color: var(--accent); }
+.photo-item { min-width: 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; margin: 12px 0; }
+.photo-item legend { font-size: 13px; color: var(--accent); padding: 0 4px; overflow-wrap: anywhere; }
+#meal-photo-form .field { margin-bottom: 8px; }
+#meal-photo-form select { display: block; width: 100%; min-width: 0; min-height: 44px; font-size: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px; color: var(--text); }
+.photo-portion .field { flex: 1; min-width: 110px; }
+.photo-portion button { min-height: 44px; }
+#meal-photo-form [data-photo-totals]:not(:empty) { padding: 12px; margin: 12px 0; background: var(--surface); border-radius: 10px; }

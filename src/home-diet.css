@@ -1,0 +1,120 @@
+.view-home .diet-home {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.view-home .diet-home .partner-copy { min-height: 0; }
+.view-home .diet-home .partner-speech:only-child { grid-column: 1 / -1; }
+.diet-turn { margin-inline-start: auto; }
+.view-home .diet-home .hero-history { margin-inline-start: 0; }
+.hero-chip {
+  position: absolute;
+  z-index: 3;
+  right: 10px;
+  width: min(30%, 10rem);
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.45;
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+.hero-chip strong, .hero-chip small { display: block; }
+.hero-chip strong { font-size: 18px; }
+.hero-chip small { color: var(--text-muted); }
+.weight-trend { top: 10px; }
+.continued-days { bottom: 10px; }
+.diet-home .story-souvenir { top: 56px; left: 10px; right: auto; }
+
+.record-buttons, .calorie-card dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.record-button, .calorie-card, .journey-partner-records {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+.record-button { display: grid; gap: 3px; padding: 10px 4px; }
+.record-button > span, .calorie-card dt { color: var(--text-muted); font-size: 12px; }
+.record-button.is-recorded > span { color: var(--accent); }
+.first-record .record-button[data-action="weight-entry"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.first-record [data-action="weight-entry"] > span { color: var(--accent-ink); }
+.calorie-card, .journey-partner-records { padding: 16px; }
+.calorie-card h2, .journey-partner-records h2 { margin: 0; font-size: 18px; }
+.calorie-total, .journey-partner-records > div { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.calorie-total strong { font-size: 24px; }
+.calorie-card dl { border-top: 1px solid var(--line); margin: 8px 0 0; padding-top: 8px; }
+.calorie-card dd { margin: 0; font-weight: 650; }
+.diet-journey-strip {
+  display: flex;
+  align-items: stretch;
+  border-block: 1px solid var(--line);
+}
+.view-home .diet-journey-strip > button {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 6px 8px;
+  gap: 6px;
+  border: 0;
+  border-radius: 0;
+}
+.view-home .diet-journey-strip > button + button { border-inline-start: 1px solid var(--line); }
+.diet-journey-strip > button > svg:first-child { width: 20px; height: 20px; }
+.diet-journey-strip > button > span { min-width: 0; }
+.diet-journey-strip > button small { display: none; }
+.diet-journey-strip > button strong { font-size: 12px; }
+.view-home .diet-home .home-today { width: 100%; }
+.journey-partner-records, .view-journey > .body-status { margin-bottom: 16px; }
+.workout-sheet .quick-set-grid { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 760px) {
+  .view-home .diet-home .partner-scene { min-height: 205px; }
+}
+
+/* 育った部位の名前（太もも・ふくらはぎ）を途中で折り返さない */
+.growth-focus-part strong { white-space:nowrap; }
+.view-home .hero-panel .partner-copy { grid-template-columns:minmax(94px, max-content) minmax(0,1fr); }
+
+.calorie-estimates { display: grid; gap: 4px; margin: 12px 0; }
+.calorie-estimates > div { display: flex; justify-content: space-between; gap: 12px; }
+.calorie-estimates dd { margin: 0; font-weight: 650; font-variant-numeric: tabular-nums; }
+.profile-form .field select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  margin-top: 7px;
+  padding: 8px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
+.profile-form .field small { color: var(--text-muted); }
+@media (max-width: 480px) {
+  .profile-form .form-row { grid-template-columns: minmax(0, 1fr); }
+}
+.calorie-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+
+.partner-scene[data-spirit="good"], .partner-scene[data-spirit="great"] {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: -2px;
+}
+.partner-scene[data-spirit="great"] { box-shadow: 0 0 12px var(--accent-soft); }
+
+.recent-exercises { margin: 14px 0; }
+.recent-exercises h2 { margin-bottom: 6px; font-size: 15px; }
+.recent-exercises > div { display: flex; flex-wrap: wrap; gap: 6px; }
+.recent-exercises button { max-width: 100%; overflow-wrap: anywhere; }
+.exercise-toggle { scroll-margin-top: 64px; }
+.photo-trial { padding: 2px 5px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); font-size: 10px; }
+.receipt-xp { color: var(--text); font-size: 13px; font-weight: 650; }

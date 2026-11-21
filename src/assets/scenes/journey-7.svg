@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="-300 0 1200 600" fill="none">
+<title>見晴らしの坂道</title>
+<defs><linearGradient id="hill" x2="0" y2="1"><stop stop-color="#b3c697"/><stop offset="1" stop-color="#8ba878"/></linearGradient><linearGradient id="path" x2="0" y2="1"><stop stop-color="#e6dcb9"/><stop offset="1" stop-color="#d0bf92"/></linearGradient><g id="pinwheel"><path d="M0 0L-34-31Q-8-46 0-19Z" fill="#d1ad7a"/><path d="M0 0L31-34Q46-8 19 0Z" fill="#b5c69b"/><path d="M0 0L34 31Q8 46 0 19Z" fill="#c09273"/><path d="M0 0L-31 34Q-46 8-19 0Z" fill="#dfcf9d"/><path d="M0 0L-34-31L0-19ZM0 0L31-34L19 0ZM0 0L34 31L0 19ZM0 0L-31 34L-19 0Z" fill="#736e55" opacity=".12"/><circle r="5" fill="#8c805d"/><circle r="2" fill="#dfd3a9"/></g></defs>
+<path d="M-300 370Q-147 292 0 330Q111 287 216 327Q339 351 422 300Q507 254 600 294Q755 257 900 329V600H-300Z" fill="#cbd9bc"/>
+<path d="M-300 460Q-147 354 0 419Q123 350 262 392Q387 405 453 350Q535 319 600 363Q755 319 900 413V600H-300Z" fill="url(#hill)"/>
+<path d="M453 347C418 371 387 391 348 406S275 436 267 468S283 527 205 600H461C386 548 361 502 326 474S325 439 366 413S439 372 472 348Z" fill="url(#path)"/>
+<path d="M447 364Q407 393 360 412T301 451M305 493Q352 542 374 583" stroke="#f1e5c3" stroke-width="8" opacity=".4"/>
+<path d="M-300 510Q-147 438 0 472Q73 436 166 465Q201 484 209 514L156 600H-300Z" fill="#a2b783"/><path d="M446 490Q527 452 600 471Q752 451 900 514V600H484Z" fill="#9cb37e"/>
+<g stroke="#9b8b60" stroke-linecap="round"><path d="M93 343V493" stroke-width="7"/><path d="M499 383V536" stroke-width="7"/><path d="M431 317V389" stroke-width="4"/><path d="M163 386V466" stroke-width="4"/></g>
+<use href="#pinwheel" transform="translate(93 340) scale(1.18) rotate(-10)"/><use href="#pinwheel" transform="translate(499 381) scale(1.08) rotate(18)"/><use href="#pinwheel" transform="translate(431 316) scale(.52) rotate(-22)"/><use href="#pinwheel" transform="translate(163 385) scale(.58) rotate(10)"/>
+<g stroke="#d9d5b2" stroke-width="2" stroke-linecap="round" opacity=".55"><path d="M23 253Q65 236 101 246M39 269Q89 250 129 261M492 228Q535 215 576 230"/></g>
+<g stroke="#91a36d" stroke-width="3" stroke-linecap="round"><path d="M24 583Q28 536 18 507M44 590Q40 548 53 516M71 582Q60 548 69 525M558 589Q550 553 562 521M581 591Q576 552 590 532"/></g>
+<g fill="#c6bc84"><ellipse cx="19" cy="514" rx="5" ry="15" transform="rotate(-14 19 514)"/><ellipse cx="51" cy="524" rx="5" ry="15" transform="rotate(13 51 524)"/><ellipse cx="68" cy="533" rx="5" ry="14" transform="rotate(7 68 533)"/><ellipse cx="560" cy="530" rx="5" ry="15" transform="rotate(12 560 530)"/><ellipse cx="587" cy="541" rx="5" ry="13" transform="rotate(16 587 541)"/></g>
+<path d="M478 316H529L519 305H488Z" fill="#a9b29a" opacity=".75"/><path d="M485 311V300M521 310V299M483 300H524" stroke="#a7af96" stroke-width="3" opacity=".75"/>
+<g fill="#c3b58c"><ellipse cx="286" cy="471" rx="10" ry="3"/><ellipse cx="365" cy="541" rx="11" ry="3"/><ellipse cx="237" cy="579" rx="11" ry="4"/></g>
+<g fill="#a4b789"><ellipse cx="130" cy="528" rx="32" ry="9"/><ellipse cx="463" cy="559" rx="25" ry="7"/></g>
+<ellipse cx="300" cy="588" rx="103" ry="9" fill="#7e805a" opacity=".13"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="-300 0 1200 600" fill="none">
+<title>星の見える広場</title>
+<defs><linearGradient id="grass" x2="0" y2="1"><stop stop-color="#b8c6a7"/><stop offset="1" stop-color="#8ea27e"/></linearGradient><linearGradient id="stone" x2="0" y2="1"><stop stop-color="#d7d4ba"/><stop offset="1" stop-color="#b9b59b"/></linearGradient><radialGradient id="glow"><stop stop-color="#f2d99d" stop-opacity=".5"/><stop offset="1" stop-color="#f2d99d" stop-opacity="0"/></radialGradient><linearGradient id="glass" x2="0" y2="1"><stop stop-color="#f1d9a0"/><stop offset="1" stop-color="#d4ad68"/></linearGradient></defs>
+<path d="M-300 379Q-145 323 0 358Q118 327 217 352T416 344T600 350Q755 320 900 375V600H-300Z" fill="#bfcfbb"/>
+<path d="M-300 442Q-150 374 0 412Q143 377 293 397T600 394Q752 370 900 432V600H-300Z" fill="url(#grass)"/>
+<path d="M26 426Q298 347 575 426L578 450Q298 379 23 451Z" fill="#b1b59a"/><path d="M24 423Q299 344 577 423" stroke="#d0d1b2" stroke-width="9" stroke-linecap="round"/>
+<g stroke="#979f87" stroke-width="2" opacity=".65"><path d="M69 417L68 438M124 404L123 426M180 393V416M238 387V408M300 385V405M362 389V410M422 395L423 418M480 406L482 432M535 420L538 440"/></g>
+<path d="M-300 600L0 548Q84 433 300 427Q515 433 600 548L900 600Z" fill="url(#stone)"/>
+<path d="M17 569Q100 468 300 461Q501 468 583 569M71 600Q124 510 300 503Q478 510 531 600M132 600Q188 550 300 549Q414 551 467 600" stroke="#a4aa93" stroke-width="2.5"/>
+<g stroke="#a4aa93" stroke-width="2"><path d="M300 427V600M232 433L164 600M368 433L436 600M154 453L10 585M446 453L590 585"/></g>
+<path d="M84 528L90 543L107 545L94 556L98 573L84 564L69 573L72 556L60 545L77 543Z" fill="#c8b98a" opacity=".8"/>
+<path d="M505 528L510 540L524 542L514 551L517 565L505 558L492 565L495 551L484 542L498 540Z" fill="#c8b98a" opacity=".8"/>
+<g stroke="#768773" stroke-width="5" stroke-linecap="round"><path d="M68 432V281Q68 265 82 265H102M536 434V282Q536 266 522 266H503"/></g>
+<path d="M85 282L84 307H112L111 282Z" fill="url(#glass)"/><path d="M483 282L482 307H510L509 282Z" fill="url(#glass)"/>
+<path d="M81 281L98 271L115 281ZM479 281L496 271L513 281Z" fill="#8d8d6f"/><path d="M85 308H111M483 308H509M98 272V264M496 272V264" stroke="#768773" stroke-width="4" stroke-linecap="round"/>
+<ellipse cx="98" cy="294" rx="43" ry="45" fill="url(#glow)"/><ellipse cx="496" cy="294" rx="43" ry="45" fill="url(#glow)"/>
+<ellipse cx="123" cy="478" rx="34" ry="11" fill="#d5bc7c" opacity=".3"/>
+<path d="M111 444H134L137 474H108Z" fill="url(#glass)"/><path d="M106 444L122 435L139 444Z" fill="#958565"/><path d="M112 439V431Q122 419 133 431V439M108 476H137M111 446V473M134 446V473" stroke="#897d60" stroke-width="3" stroke-linecap="round"/>
+<g fill="#8da27b"><path d="M-300 499Q-148 438 0 467Q37 441 74 465L79 490L0 523L-300 555Z"/><path d="M526 464Q564 437 600 463Q749 439 900 501V554L600 520L521 489Z"/></g>
+<g stroke="#6b8667" stroke-width="3" stroke-linecap="round"><path d="M38 481L32 459M38 481L45 465M566 483L574 460M566 483L559 469"/></g>
+<g fill="#d5d1ae"><circle cx="177" cy="480" r="2.4"/><circle cx="430" cy="477" r="2"/><circle cx="72" cy="597" r="2.4"/><circle cx="543" cy="590" r="2.2"/></g>
+<ellipse cx="300" cy="590" rx="102" ry="9" fill="#737d69" opacity=".13"/>
+</svg>

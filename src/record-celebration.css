@@ -1,0 +1,39 @@
+/* One 800ms reward. All layers ignore pointer input and never take focus. */
+.record-celebration { position:fixed; inset:0; z-index:90; pointer-events:none; overflow:hidden; }
+.record-celebration * { pointer-events:none !important; }
+.celebration-focus { position:absolute; isolation:isolate; }
+.celebration-rays { position:absolute; width:110%; height:112%; left:-5%; top:-6%; object-fit:fill; z-index:-1; animation:record-rays 800ms ease-out both; }
+.celebration-call { position:absolute; left:50%; bottom:5%; width:max-content; max-width:190px; padding:5px 10px; border-radius:20px; background:var(--surface); border:1px solid var(--line); color:var(--accent); font-size:13px; font-weight:900; box-shadow:0 3px 12px color-mix(in srgb, var(--accent) 19%, transparent); transform:translateX(-50%); animation:record-call 800ms ease-out both; }
+.celebration-companion { border-radius:50%; background:radial-gradient(ellipse,color-mix(in srgb, var(--surface) 95%, transparent) 0%,color-mix(in srgb, var(--surface) 55%, transparent) 45%,transparent 73%); }
+.celebration-companion .character { width:100%; height:100%; margin:0; }
+.celebration-destinations { position:absolute; left:50%; transform:translateX(-50%); display:flex; justify-content:center; flex-wrap:wrap; gap:6px; width:max-content; max-width:calc(100vw - 24px); }
+.celebration-part { display:flex; min-width:74px; flex:1; flex-direction:column; align-items:center; padding:7px 10px; background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:0 3px 12px color-mix(in srgb, var(--accent) 13%, transparent); color:var(--accent); font-size:11px; }
+.celebration-part>b { white-space:nowrap; color:var(--accent); font-size:17px; line-height:1.4; }
+.celebration-part small { font-size:10px; }
+.celebration-xp { position:absolute; display:block; padding:5px 7px; border-radius:20px; background:var(--accent); border:1px solid var(--line); color:var(--accent-ink); font-size:14px; line-height:1.2; font-weight:900; white-space:nowrap; box-shadow:0 3px 10px color-mix(in srgb, var(--accent) 21%, transparent); margin-left:-20px; margin-top:-12px; animation:record-xp 650ms cubic-bezier(.2,.6,.3,1) var(--flight-delay) both; }
+.record-celebration-moving .celebration-target { animation:record-absorb 140ms ease-out 650ms both !important; }
+.record-celebration-moving .body-stat.gained, .record-celebration-moving .gained .progress>span { animation:none; }
+.record-celebration-moving .home-record-result, .record-celebration-moving .shape-arrival { visibility:hidden; }
+.record-celebration-moving .celebration-copy { visibility:hidden; }
+.record-celebration-moving .record-confirmation { position:relative; z-index:91; }
+.record-celebration-moving .partner-scene>.character.is-cheering { z-index:2; }
+.record-celebration-running .partner-panel { border-color:var(--line); }
+.record-celebration-static .partner-panel, .record-celebration-static .body-stat.gained { background:var(--accent-soft); border-color:var(--accent); }
+.celebration-flash { position:absolute; inset:0; background:var(--accent); animation:record-flash 800ms ease-out both; }
+.effect-shape .celebration-flash { background:var(--accent); }
+.effect-shape .celebration-focus { animation:record-stage 800ms ease-out both; }
+.record-celebration-moving.record-celebration-shape .partner-scene>.character { animation:record-stage 800ms ease-out var(--cheer-delay,0ms) both; transform-origin:50% 75%; }
+@keyframes record-rays { 0% { opacity:0; transform:scale(.82); } 17% { opacity:.9; transform:scale(1); } 52% { opacity:.65; } 100% { opacity:0; transform:scale(1.06); } }
+@keyframes record-call { 0% { opacity:0; transform:translate(-50%,7px) scale(.9); } 20%,72% { opacity:1; transform:translate(-50%,0) scale(1); } 100% { opacity:0; transform:translate(-50%,-4px); } }
+@keyframes record-xp { 0% { opacity:0; transform:translate(0,0) scale(.7); } 12% { opacity:1; } 55% { opacity:1; transform:translate(calc(var(--flight-x) * .55),calc(var(--flight-y) * .45 - 35px)) scale(1.08); } 88% { opacity:1; } 100% { opacity:0; transform:translate(var(--flight-x),var(--flight-y)) scale(.4); } }
+@keyframes record-absorb { 0%,100% { box-shadow:0 0 0 0 transparent; } 45% { background:var(--accent-soft); box-shadow:0 0 0 5px color-mix(in srgb, var(--accent) 28%, transparent); } }
+@keyframes record-flash { 0% { opacity:0; } 18% { opacity:.13; } 43%,100% { opacity:0; } }
+@keyframes record-stage { 0% { transform:scale(1); } 28% { transform:scale(1.12); } 58% { transform:scale(.98); } 80%,100% { transform:scale(1); } }
+.reduce-motion .record-celebration:not(.is-static) { display:none; }
+.reduce-motion .celebration-target { animation:none !important; }
+.reduce-motion.record-celebration-moving .home-record-result, .reduce-motion.record-celebration-moving .shape-arrival { visibility:visible; }
+@media(prefers-reduced-motion:reduce) {
+  .record-celebration:not(.is-static) { display:none; }
+  .record-celebration-moving .celebration-target { animation:none !important; }
+  .record-celebration-moving .home-record-result, .record-celebration-moving .shape-arrival { visibility:visible; }
+}

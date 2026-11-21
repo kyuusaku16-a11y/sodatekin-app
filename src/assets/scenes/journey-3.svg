@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="-300 0 1200 600" fill="none">
+<title>ひと息のベンチ</title>
+<defs><linearGradient id="grass" x2="0" y2="1"><stop stop-color="#bed0a6"/><stop offset="1" stop-color="#94ae7d"/></linearGradient><linearGradient id="path" x2="0" y2="1"><stop stop-color="#ece2c5"/><stop offset="1" stop-color="#d9cba8"/></linearGradient><linearGradient id="crown" x2=".3" y2="1"><stop stop-color="#b5c895"/><stop offset="1" stop-color="#719665"/></linearGradient></defs>
+<path d="M-300 358Q-140 299 0 342Q106 300 203 342T402 330T600 346Q747 310 900 359V600H-300Z" fill="#cfdbc3"/>
+<path d="M-300 437Q-155 378 0 416Q145 367 273 397T600 388Q752 369 900 421V600H-300Z" fill="url(#grass)"/>
+<path d="M278 394C266 440 269 459 231 493S145 559 95 600H538C470 558 419 516 385 475S343 416 327 394Z" fill="url(#path)"/>
+<path d="M279 421Q302 454 276 484T219 548" stroke="#f4ecd4" stroke-width="9" opacity=".4"/>
+<path d="M492 455L488 264H503L512 455Z" fill="#98845e"/><path d="M497 345L458 300M500 319L538 283" stroke="#98845e" stroke-width="10" stroke-linecap="round"/>
+<path d="M415 265Q396 226 429 204Q415 168 455 157Q468 124 501 142Q538 113 566 151Q610 150 614 189Q643 223 610 252Q608 291 567 290Q533 318 502 294Q455 313 437 282Q418 287 415 265Z" fill="url(#crown)"/>
+<path d="M434 219Q462 203 486 217M511 175Q538 163 557 181M522 273Q550 282 571 264" stroke="#d0dbaa" stroke-width="9" stroke-linecap="round" opacity=".35"/>
+<path d="M-300 465Q-151 418 0 450Q49 421 97 444Q135 428 172 450L181 475H-300Z" fill="#91ae7c"/>
+<ellipse cx="124" cy="490" rx="98" ry="17" fill="#697e52" opacity=".18"/>
+<g stroke="#756e50" stroke-width="8" stroke-linecap="round"><path d="M57 406L49 487M173 405L183 487M44 453H189"/></g>
+<path d="M45 386Q117 380 183 387L182 405Q117 400 45 405Z" fill="#b69b71"/><path d="M45 411Q118 405 183 412L182 429Q118 425 45 430Z" fill="#ad9167"/>
+<path d="M43 439H186L207 455H25Z" fill="#c2a57a"/><path d="M25 455H207V464H25Z" fill="#9b815b"/>
+<path d="M59 393Q117 389 167 393M59 418Q116 414 167 419M47 447H181" stroke="#dac295" stroke-width="3" opacity=".7"/>
+<path d="M135 423H151L149 439H138Z" fill="#e4dfc7"/><path d="M151 427Q161 426 159 433Q157 437 150 434" stroke="#e4dfc7" stroke-width="4"/><ellipse cx="143" cy="423" rx="8" ry="2.7" fill="#8a7655"/><path d="M143 416Q137 410 143 403" stroke="#f4edda" stroke-width="2" opacity=".65"/>
+<path d="M433 463Q479 438 554 462L563 495Q491 516 425 490Z" fill="#a4b589"/><path d="M430 492Q491 511 560 492" stroke="#8c9e76" stroke-width="6"/>
+<g stroke="#6f925e" stroke-width="3" stroke-linecap="round"><path d="M449 485L446 451M472 489L473 440M496 489L500 448M522 486L528 440M543 482L544 452"/></g>
+<g fill="#b6a6ba"><ellipse cx="446" cy="449" rx="7" ry="13"/><ellipse cx="473" cy="439" rx="7" ry="14"/><ellipse cx="500" cy="446" rx="7" ry="12"/><ellipse cx="528" cy="438" rx="7" ry="14"/><ellipse cx="544" cy="450" rx="6" ry="11"/></g>
+<g fill="#a4b98c"><ellipse cx="49" cy="556" rx="38" ry="9"/><ellipse cx="559" cy="563" rx="31" ry="8"/></g>
+<g fill="#c6bc9b"><ellipse cx="223" cy="505" rx="10" ry="3"/><ellipse cx="410" cy="548" rx="13" ry="4"/><ellipse cx="194" cy="575" rx="9" ry="3"/></g>
+<ellipse cx="300" cy="588" rx="105" ry="10" fill="#8b8566" opacity=".12"/>
+</svg>

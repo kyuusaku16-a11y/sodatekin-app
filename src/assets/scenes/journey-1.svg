@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="-300 0 1200 600" fill="none">
+<title>待ち合わせの庭</title>
+<defs>
+<linearGradient id="grass" x2="0" y2="1"><stop stop-color="#b9cca0"/><stop offset="1" stop-color="#8fac79"/></linearGradient>
+<linearGradient id="leaves" x2=".3" y2="1"><stop stop-color="#a5be87"/><stop offset="1" stop-color="#64885d"/></linearGradient>
+<linearGradient id="path" x2="0" y2="1"><stop stop-color="#e7dec0"/><stop offset="1" stop-color="#d8c69e"/></linearGradient>
+</defs>
+<path d="M-300 363Q-155 315 0 351Q83 315 177 347T360 348T600 329Q745 312 900 354V600H-300Z" fill="#cfddbf"/>
+<path d="M-300 427Q-156 376 0 398Q105 365 220 398T442 385T600 394Q751 367 900 417V600H-300Z" fill="url(#grass)"/>
+<path d="M276 392C277 442 238 455 215 493S175 569 111 600H496C411 559 388 515 371 474S337 414 328 392Z" fill="url(#path)"/>
+<path d="M283 406C278 458 243 482 219 521S200 573 176 600" stroke="#f2e8cb" stroke-width="10" opacity=".38"/>
+<g stroke="#c7ba90" stroke-width="7" stroke-linecap="round"><path d="M0 389H243M357 389H600M0 414H243M357 414H600"/><path d="M20 376V436M49 375V433M78 376V432M107 378V432M136 378V432M165 380V431M194 379V431M223 379V431M377 379V431M406 377V431M435 378V431M464 374V431M493 374V433M522 373V435M551 375V437M580 375V438"/></g>
+<path d="M-300 446Q-160 395 0 433Q41 409 77 427Q112 400 148 424Q184 406 222 431L239 454H-300Z" fill="#769b65"/>
+<path d="M373 435Q408 410 446 429Q480 402 516 426Q563 411 600 435Q750 400 900 443V462H365Z" fill="#799b66"/>
+<ellipse cx="535" cy="467" rx="51" ry="13" fill="#5c7e54" opacity=".2"/>
+<path d="M529 459L525 261L541 260L547 459Z" fill="#927d58"/>
+<path d="M533 346L499 304M537 326L566 288" stroke="#927d58" stroke-width="10" stroke-linecap="round"/>
+<path d="M448 263Q430 226 459 203Q442 167 478 155Q480 118 517 128Q548 99 574 130Q615 125 624 161Q650 192 626 222Q638 261 601 271Q575 307 539 286Q499 306 477 280Q455 283 448 263Z" fill="url(#leaves)"/>
+<path d="M466 204Q498 180 526 200M541 159Q570 143 594 166M486 253Q517 267 542 249" stroke="#c0d19d" stroke-width="9" stroke-linecap="round" opacity=".35"/>
+<g stroke="#a18c62" stroke-width="9" stroke-linecap="round"><path d="M62 449V326Q62 273 111 271Q158 273 158 326V446"/><path d="M62 334H158M62 369H158M85 295V443M133 295V444"/></g>
+<path d="M64 435C83 403 58 381 76 350S67 302 101 280S156 305 150 347" stroke="#6a8e5d" stroke-width="4"/>
+<g fill="#8faf76"><ellipse cx="71" cy="395" rx="17" ry="7" transform="rotate(-28 71 395)"/><ellipse cx="76" cy="350" rx="16" ry="7" transform="rotate(31 76 350)"/><ellipse cx="82" cy="313" rx="16" ry="7" transform="rotate(-31 82 313)"/><ellipse cx="125" cy="283" rx="16" ry="7" transform="rotate(25 125 283)"/><ellipse cx="151" cy="329" rx="16" ry="7" transform="rotate(68 151 329)"/></g>
+<g fill="#d6ab76"><circle cx="81" cy="348" r="5"/><circle cx="97" cy="292" r="5"/><circle cx="146" cy="309" r="5"/></g>
+<path d="M442 470H500L493 506Q470 518 449 506Z" fill="#b88d6a"/><path d="M438 466H504V477H438Z" fill="#c79c77"/>
+<g stroke="#6e925c" stroke-width="3"><path d="M459 466L450 428M474 467L476 418M487 467L494 434"/></g>
+<g fill="#e5c488"><circle cx="450" cy="426" r="11"/><circle cx="476" cy="417" r="12"/><circle cx="494" cy="432" r="10"/></g><g fill="#9b8750"><circle cx="450" cy="426" r="4"/><circle cx="476" cy="417" r="4"/><circle cx="494" cy="432" r="3"/></g>
+<g fill="#90aa7a"><ellipse cx="59" cy="534" rx="38" ry="10"/><ellipse cx="548" cy="552" rx="42" ry="11"/></g>
+<g stroke="#6d8f5e" stroke-width="3" stroke-linecap="round"><path d="M43 536L37 516M43 536L48 521M559 551L565 531M559 551L550 538"/></g>
+<g fill="#c8bc9a"><ellipse cx="222" cy="493" rx="9" ry="3"/><ellipse cx="382" cy="537" rx="12" ry="4"/><ellipse cx="176" cy="573" rx="11" ry="4"/></g>
+<ellipse cx="300" cy="588" rx="105" ry="10" fill="#8d855e" opacity=".12"/>
+</svg>

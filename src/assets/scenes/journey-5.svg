@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="-300 0 1200 600" fill="none">
+<title>丘の上の市場</title>
+<defs><linearGradient id="hill" x2="0" y2="1"><stop stop-color="#bdcba4"/><stop offset="1" stop-color="#98ae7d"/></linearGradient><linearGradient id="road" x2="0" y2="1"><stop stop-color="#e5d9b7"/><stop offset="1" stop-color="#d6c49d"/></linearGradient><linearGradient id="cloth" x2="0" y2="1"><stop stop-color="#e6d7b2"/><stop offset="1" stop-color="#c6b88d"/></linearGradient></defs>
+<path d="M-300 354Q-150 289 0 330Q100 282 191 326Q280 352 372 316T600 319Q748 283 900 347V600H-300Z" fill="#ccd7ba"/>
+<path d="M-300 442Q-142 360 0 409Q103 359 228 390T600 378Q752 353 900 428V600H-300Z" fill="url(#hill)"/>
+<path d="M278 384C277 423 244 459 201 503S153 562 106 600H531C454 552 401 495 366 449S332 404 323 384Z" fill="url(#road)"/>
+<path d="M-300 493Q-150 447 0 477Q80 453 157 478L183 501L148 526Q57 513 0 536Q-150 510-300 544Z" fill="#8da474" opacity=".4"/>
+<path d="M440 479Q521 454 600 485Q750 453 900 495V546Q748 508 600 531Q534 510 455 529Z" fill="#8da474" opacity=".4"/>
+<g stroke="#8d7956" stroke-width="7" stroke-linecap="round"><path d="M35 340V479M193 340V479M420 338V477M575 338V477"/></g>
+<path d="M25 337L61 279H163L204 337Z" fill="url(#cloth)"/>
+<path d="M61 279H85L62 337H25ZM111 279H137L145 337H101ZM163 279L204 337H169L145 279Z" fill="#b99475"/>
+<path d="M25 337H204V352Q188 363 174 352Q159 365 144 352Q129 366 114 352Q99 365 84 352Q69 365 54 352Q39 363 25 352Z" fill="#dbc9a3"/>
+<path d="M25 337H54V352Q39 363 25 352ZM84 337H114V352Q99 365 84 352ZM144 337H174V352Q159 365 144 352Z" fill="#ad886b"/>
+<path d="M410 337L449 278H548L585 337Z" fill="#dfd9b4"/>
+<path d="M449 278H472L447 337H410ZM499 278H524L529 337H487ZM548 278L585 337H554L533 278Z" fill="#9aaf83"/>
+<path d="M410 337H585V352Q570 364 556 352Q542 365 528 352Q514 365 500 352Q486 365 472 352Q457 365 443 352Q425 363 410 352Z" fill="#d7d1ab"/>
+<path d="M410 337H443V352Q426 363 410 352ZM472 337H500V352Q486 365 472 352ZM528 337H556V352Q542 365 528 352Z" fill="#8fa078"/>
+<path d="M32 420H197V459H32Z" fill="#b59a73"/><path d="M28 414H202V426H28Z" fill="#ceb48a"/><path d="M41 435H188M41 449H188" stroke="#9b825f" stroke-width="2"/>
+<path d="M417 420H577V461H417Z" fill="#ad9670"/><path d="M413 414H582V427H413Z" fill="#c8ae85"/><path d="M429 437H566M429 451H566" stroke="#927c5b" stroke-width="2"/>
+<g stroke="#927e5d" stroke-width="3"><path d="M60 370H165M74 370V402M109 370V398M145 370V402"/></g>
+<g fill="#dbcb9f" stroke="#9b8764" stroke-width="2"><circle cx="74" cy="402" r="10"/><circle cx="109" cy="398" r="12"/><circle cx="145" cy="402" r="9"/></g>
+<path d="M109 390L113 399L106 405L107 397Z" fill="#9a765e"/>
+<path d="M47 401H61V414H47ZM161 397H176V414H161Z" fill="#8c9b77"/>
+<g fill="#c99d62"><circle cx="442" cy="406" r="9"/><circle cx="458" cy="403" r="9"/><circle cx="475" cy="406" r="8"/></g><g fill="#94a774"><ellipse cx="507" cy="405" rx="10" ry="8"/><ellipse cx="525" cy="404" rx="10" ry="9"/><ellipse cx="543" cy="405" rx="10" ry="8"/></g>
+<path d="M448 483H515V522H448Z" fill="#b89c72"/><path d="M448 492H515M448 511H515M459 483V522M505 483V522" stroke="#907957" stroke-width="3"/>
+<path d="M76 476H130L123 517H83Z" fill="#b9aa86"/><path d="M79 485H128M82 496H125M84 507H123" stroke="#9c8f70" stroke-width="2"/>
+<g stroke="#aeaa83" stroke-width="2"><path d="M9 248Q100 269 195 246M408 246Q505 270 598 244"/></g>
+<path d="M33 253L42 275L55 257M78 260L89 282L101 261M125 260L138 279L149 257M433 252L446 274L456 257M481 260L492 280L505 261M532 259L546 277L558 254" fill="#c9af85"/>
+<g fill="#c4b58f"><ellipse cx="216" cy="506" rx="10" ry="3"/><ellipse cx="410" cy="552" rx="13" ry="4"/><ellipse cx="171" cy="576" rx="11" ry="4"/></g>
+<ellipse cx="300" cy="588" rx="105" ry="10" fill="#8c7e5a" opacity=".13"/>
+</svg>

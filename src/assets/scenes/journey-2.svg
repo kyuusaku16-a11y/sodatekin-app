@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="-300 0 1200 600" fill="none">
+<title>木漏れ日の小道</title>
+<defs><linearGradient id="floor" x2="0" y2="1"><stop stop-color="#abc39a"/><stop offset="1" stop-color="#769568"/></linearGradient><linearGradient id="leaf" x2=".3" y2="1"><stop stop-color="#9ebd85"/><stop offset="1" stop-color="#527a55"/></linearGradient><linearGradient id="trail" x2="0" y2="1"><stop stop-color="#e1d9b7"/><stop offset="1" stop-color="#d5c298"/></linearGradient></defs>
+<path d="M-300 349Q-150 290 0 332Q89 297 168 329T342 325T600 300Q745 278 900 332V600H-300Z" fill="#b8cdb0" opacity=".8"/>
+<g stroke="#91af8c" stroke-width="12" opacity=".44"><path d="M155 165L161 405M204 209L203 403M409 188L403 399M452 146L446 411"/></g>
+<path d="M-300 436Q-155 373 0 411Q103 370 219 401T434 388T600 403Q755 369 900 435V600H-300Z" fill="url(#floor)"/>
+<path d="M304 379C370 404 353 433 295 449S198 489 231 525S337 571 379 600H77C147 563 146 535 173 489S294 434 301 415S281 393 279 383Z" fill="url(#trail)"/>
+<path d="M299 408Q341 430 287 445T216 485" stroke="#f1e9cb" stroke-width="9" opacity=".38"/>
+<path d="M37 469L46 99L75 87L71 467Z" fill="#877653"/><path d="M50 290L12 231M65 225L123 162" stroke="#877653" stroke-width="17" stroke-linecap="round"/>
+<path d="M534 481L527 101L557 79L571 477Z" fill="#827454"/><path d="M540 309L491 251M546 220L599 178" stroke="#827454" stroke-width="18" stroke-linecap="round"/>
+<path d="M-35 190Q-62 134-18 106Q-33 55 17 40Q30-2 77 18Q117-9 146 28Q193 30 188 75Q220 114 180 141Q177 188 126 181Q94 216 51 192Q2 215-14 187Z" fill="url(#leaf)"/>
+<path d="M433 128Q399 84 435 56Q427 16 469 11Q495-17 529 7Q571-19 603 14Q650 14 658 64Q692 103 650 132Q647 174 600 172Q563 199 532 173Q484 194 465 155Q435 158 433 128Z" fill="url(#leaf)"/>
+<path d="M30 62Q70 43 97 62M122 97Q152 85 170 104M485 56Q517 40 545 56M558 119Q584 99 615 119" stroke="#c3d6a6" stroke-width="11" stroke-linecap="round" opacity=".3"/>
+<path d="M401 0L466 0L223 508L170 510Z" fill="#fff3cb" opacity=".13"/><path d="M475 0L493 0L325 421L299 436Z" fill="#fff4ce" opacity=".1"/>
+<g fill="#d1d5a4" opacity=".6"><ellipse cx="273" cy="441" rx="22" ry="5" transform="rotate(-15 273 441)"/><ellipse cx="216" cy="487" rx="28" ry="7" transform="rotate(-15 216 487)"/><ellipse cx="218" cy="540" rx="35" ry="9" transform="rotate(-15 218 540)"/><ellipse cx="365" cy="555" rx="20" ry="5"/></g>
+<path d="M15 546Q75 500 119 536L107 559L26 567Z" fill="#8c7756"/><path d="M25 550Q73 524 108 546" stroke="#b29b72" stroke-width="5"/><ellipse cx="111" cy="545" rx="11" ry="15" fill="#b5a17d"/><ellipse cx="111" cy="545" rx="5" ry="8" stroke="#8d7756" stroke-width="2"/>
+<g fill="#527b50"><path d="M46 600Q34 565 3 562Q20 550 45 569Q23 534 9 527Q42 523 57 566Q51 529 63 509Q80 537 70 568Q89 541 109 541Q105 568 79 584L79 600Z"/><path d="M532 600Q521 565 491 555Q519 548 542 573Q529 538 536 515Q555 530 557 565Q573 529 598 533Q592 560 565 580Q588 565 611 577V600Z"/></g>
+<g stroke="#80a46b" stroke-width="3" stroke-linecap="round"><path d="M61 593L57 548M553 593L559 553M485 485L477 466M485 485L491 469"/></g>
+<g fill="#9baf82"><ellipse cx="424" cy="498" rx="29" ry="8"/><ellipse cx="118" cy="465" rx="22" ry="6"/></g><path d="M166 574Q176 561 187 570Q181 582 166 574Z" fill="#b38e5a"/>
+<ellipse cx="300" cy="588" rx="105" ry="10" fill="#7e8059" opacity=".12"/>
+</svg>

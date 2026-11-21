@@ -1,0 +1,29 @@
+/* A bound notebook on a low wooden bench in the companion's scene. */
+.notebook-on-bench { position:absolute; bottom:3px; left:6px; z-index:4; display:flex; align-items:center; gap:3px; min-height:46px; padding:2px 4px; border:0; background:transparent; color:var(--text); }
+.notebook-prop { position:relative; display:block; width:43px; height:39px; flex:none; }
+.notebook-cover { position:absolute; left:8px; top:2px; width:28px; height:22px; transform:rotate(-12deg) skewX(-5deg); border:1px solid var(--accent); border-left:4px solid var(--accent); border-radius:2px 4px 3px 2px; background:var(--surface); box-shadow:0 2px var(--bg),0 3px var(--bg); }
+.notebook-cover::before { content:""; position:absolute; left:3px; right:4px; top:4px; height:7px; border:1px solid var(--line); }
+.notebook-cover::after { content:""; position:absolute; bottom:-5px; right:4px; width:4px; height:7px; background:var(--accent); }
+.is-reading .notebook-cover { left:4px; width:35px; height:19px; top:6px; transform:rotate(-6deg); border:1px solid var(--accent); background:linear-gradient(90deg,var(--accent-soft) 47%,var(--line) 50%,var(--accent-soft) 53%); box-shadow:0 2px var(--bg); }
+.is-reading .notebook-cover::before { left:4px; right:4px; top:5px; height:5px; border:0; border-block:1px solid var(--line); }
+.notebook-seat { position:absolute; left:1px; bottom:10px; width:41px; height:5px; border-radius:2px; background:var(--surface); box-shadow:inset 0 -2px var(--accent); }
+.notebook-seat::before,.notebook-seat::after { content:""; position:absolute; top:5px; width:4px; height:8px; background:var(--accent); }
+.notebook-seat::before { left:5px; } .notebook-seat::after { right:5px; }
+.notebook-tag { display:block; padding:3px 5px; border-radius:5px; background:var(--surface); color:var(--text); font-size:11px; font-weight:700; }
+.notebook-shelf,.notebook-hint { margin:12px 0; padding:12px 14px; border-left:4px solid var(--accent); background:var(--surface); color:var(--text); }
+.notebook-shelf { width:100%; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:5px 12px; text-align:left; }
+.notebook-shelf span,.notebook-hint { font-size:13px; }
+.notebook-picker { display:grid; gap:5px; margin:0 0 13px; color:var(--text); font-size:13px; }
+.notebook-picker select { width:100%; min-height:44px; padding:7px 10px; font:inherit; font-size:16px; background:var(--surface); color:var(--text); border:1px solid var(--line); border-radius:8px; }
+.notebook-receipt { min-height:44px; text-align:left; font-size:12px; }
+.notebook-paper { position:relative; margin:4px 2px 10px; padding:22px 20px 17px 28px; background:var(--surface); border:1px solid var(--line); border-left:7px solid var(--accent); border-radius:4px 14px 14px 4px; box-shadow:2px 3px var(--bg),3px 5px var(--bg); }
+.notebook-paper.is-bookmarked::after { content:""; position:absolute; right:24px; top:-1px; width:12px; height:21px; background:var(--accent); clip-path:polygon(0 0,100% 0,100% 100%,50% 75%,0 100%); }
+.notebook-paper header span,.notebook-paper time { color:var(--text-muted); font-size:12px; }
+.notebook-paper h3 { margin:2px 0 12px; font-size:23px; color:var(--text); }
+.notebook-paper blockquote { margin:0 0 14px; color:var(--text); font-size:15px; line-height:1.8; }
+.notebook-paper ol { list-style:none; margin:0; padding:0; }
+.notebook-paper li { padding:12px 0; border-top:1px solid var(--line); }
+.notebook-paper li div { display:flex; flex-wrap:wrap; justify-content:space-between; gap:3px 8px; font-size:13px; color:var(--text-muted); }
+.notebook-paper li p { font-size:13px; color:var(--text-muted); }
+.notebook-paper li strong { color:var(--text); font-size:17px; }
+@media(max-width:370px){.notebook-on-bench { gap:0; left:3px; }.notebook-tag { font-size:10px; padding:3px; }.notebook-paper { padding:18px 12px 12px 16px; }}

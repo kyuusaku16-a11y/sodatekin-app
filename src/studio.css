@@ -1,0 +1,102 @@
+body { background:var(--bg); }
+.sidebar { background:var(--surface); border-color:var(--line); }
+.brand { color:var(--text); }
+.brand-mark { transform:none; border-radius:11px; background:var(--accent); color:var(--accent-ink); }
+.sidebar-tagline,.local-note,.version,.sidebar-settings,.nav-item,.text-button,.navigation .nav-item { color:var(--text-muted); }
+.navigation .nav-item.active { background:var(--accent-soft); color:var(--accent); }
+.nav-item.active>.icon:first-child { color:var(--accent); }
+.status-dot { background:var(--accent); }
+:is(.button-primary,.nav-item,.training-record):focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+.studio-heading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; max-width:1080px; margin:0 auto 16px; }
+.studio-heading h1 { font:500 clamp(23px,2.5vw,38px)/1.2 'Hiragino Mincho ProN','Yu Mincho',serif; letter-spacing:.06em; }
+.studio-heading time { color:var(--text-muted); font-size:12px; font-variant-numeric:tabular-nums; }
+.view-home .hero-panel { padding:0; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); overflow:hidden; }
+.view-home .hero-panel .partner-heading { padding:5px 16px; margin:0; }
+.view-home .hero-panel .partner-name { color:var(--text); }
+.view-home .hero-panel .partner-scene { padding:0; margin:0; overflow:hidden; }
+.view-home .hero-panel .partner-condition { color:var(--text-muted); }
+.studio-backdrop {
+  position:absolute; inset:0; overflow:hidden;
+  background:radial-gradient(ellipse at center, transparent 32%, var(--bg) 100%),
+    var(--bg) url('./assets/scenes/studio.webp') center bottom / cover no-repeat;
+}
+.studio-backdrop::after {
+  content:''; position:absolute; left:50%; bottom:1%; transform:translateX(-50%);
+  width:20%; height:5%; background:radial-gradient(ellipse,color-mix(in srgb, var(--bg) 33%, transparent),transparent 70%);
+}
+.view-home .hero-panel .partner-shape-link,.view-home .hero-panel .partner-turn {
+  color:var(--text); background:color-mix(in srgb, var(--surface) 91%, transparent); border:1px solid var(--line); border-radius:9px;
+}
+.view-home .hero-panel .partner-shape-link { top:10px; left:10px; }
+.view-home .hero-panel .partner-turn { right:10px; bottom:10px; }
+.view-home .hero-panel .portrait-caption {
+  inset:auto auto 10px 10px; transform:none; background:color-mix(in srgb, var(--surface) 91%, transparent); color:var(--text); border:0;
+}
+.view-home .hero-panel .partner-copy { width:100%; padding:10px 16px; }
+.view-home .hero-panel .partner-speech { background:var(--surface); color:var(--text); font-weight:500; }
+.view-home .hero-panel .partner-speech::before { background:var(--surface); }
+.view-home .starter-lead,.partner-level,.partner-growth-focus,.growth-focus-part { color:var(--text); }
+.view-home .starter-lead small,.view-home .partner-level>span,.view-home .partner-growth-focus>span { color:var(--text-muted); }
+.view-home .hero-panel .partner-tools { margin:0 14px; border-top:1px solid var(--line); }
+.view-home .hero-panel .partner-tools :is(summary,button) { color:var(--text); }
+.view-home .quick-training { border:0; }
+.view-home .training-tile,.view-home .training-tile.is-recorded { border:1px solid var(--line); background:var(--surface); border-radius:12px; }
+.view-home .training-save-status:empty { display:none; }
+.view-home .training-save-status { color:var(--text); background:var(--surface); }
+.view-home .training-record,.view-home .is-recorded .training-record { background:var(--accent); color:var(--accent-ink); }
+.view-home .training-record:hover,.view-home .is-recorded .training-record:hover { background:var(--accent); }
+.view-home .training-call,.view-home .is-recorded .training-call { color:var(--accent-ink); font-weight:600; }
+.view-home .training-record .training-amount { color:var(--accent-ink); }
+.view-home .training-summary,.view-home .is-recorded .training-summary,.view-home .training-edit { background:var(--surface); color:var(--text); }
+.view-home .training-actions,.view-home .training-actions .training-edit { border-color:var(--line); }
+.view-home .training-help>span,.view-home .text-button,.view-home .starter-more>summary { color:var(--text-muted); }
+.view-home .body-status,.view-home .body-stat,.view-home .journey-peek,.view-home .food-strip,.view-home .story-peek,.view-home .record-receipt {
+  border-color:var(--line); background:var(--surface); color:var(--text);
+}
+.view-home .body-stat { background:var(--bg); }
+.view-home .body-stat.recent-growth,.view-home .receipt-growth,.view-home .record-confirmation { background:var(--surface); border-color:var(--line); color:var(--accent); }
+.view-home .progress { background:var(--line); }
+.view-home .progress>span { background:var(--accent); }
+.studio-light { position:absolute; inset:0; display:grid; place-items:center; container-type:size; pointer-events:none; }
+.studio-light-frame { position:relative; width:min(100cqw,calc(100cqh * 400 / 552)); aspect-ratio:400 / 552; }
+.studio-light i { position:absolute; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(ellipse,color-mix(in srgb, var(--accent) 87%, transparent),color-mix(in srgb, var(--accent) 56%, transparent) 35%,transparent 73%); animation:studio-muscle-light 800ms ease-out both; }
+@keyframes studio-muscle-light { 0%,100% { opacity:0; } 30% { opacity:1; } }
+html:has(.studio-response) .home-record-result { visibility:visible; }
+html:has(.studio-response) .partner-scene>.studio-character { animation:none; }
+.body-type-options { grid-template-columns:repeat(4,minmax(0,1fr)); }
+@media (max-width:760px) {
+  .sidebar { background:color-mix(in srgb, var(--surface) 96%, transparent); }
+  .mobile-header .icon-button,.navigation .nav-item { color:var(--text-muted); }
+  .navigation .nav-item.active { color:var(--accent); background:var(--accent-soft); }
+  .navigation .nav-item.active>.icon:first-child { color:var(--accent); }
+  .studio-heading { margin-bottom:8px; }
+  .studio-heading h1 { font-size:21px; }
+  .studio-heading time { font-size:11px; }
+  .view-home .hero-panel { --hero-body-height:clamp(135px,calc(100svh - 540px),345px); }
+  .view-home .hero-panel .partner-heading { padding:0 12px; }
+  .view-home .hero-panel .partner-copy { padding:6px 12px; }
+}
+@media(max-width:440px) {
+  .body-type-options { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(min-width:1000px) {
+  .view-home .hero-home { display:grid; grid-template-columns:minmax(0,1.38fr) minmax(280px,1fr); align-items:start; column-gap:24px; }
+  .view-home .hero-panel { grid-column:1; grid-row:1 / span 3; --hero-body-height:clamp(330px,47vh,590px); }
+  .view-home .quick-training { grid-column:2; padding:20px; background:var(--surface); border:1px solid var(--line); border-radius:16px; }
+  .view-home .training-grid { grid-template-columns:1fr; gap:9px; }
+  .view-home .training-record:not(.training-record-compact) { flex-direction:row; justify-content:flex-start; min-height:66px; padding:12px 16px; }
+  .view-home .training-record:not(.training-record-compact) .training-call { margin-left:auto; }
+  .view-home .hero-home>.workout-drafts,.view-home .hero-home>.story-peek,.view-home .hero-home>.starter-more { grid-column:2; margin:0; }
+  .view-home .home-support { grid-column:1/-1; }
+}
+/* Carry the studio materials through the recording and comparison screens. */
+.info-banner,.exercise-icon,.exercise-last,.food-icon,.comparison-pair figure,.part-progress-pair>figure {
+  background:var(--bg); color:var(--text); border-color:var(--line);
+}
+.nutrition-hero,.comparison-pair figure.current-figure { background:var(--surface); color:var(--text); border-color:var(--line); }
+.journey-total { background:var(--surface); }
+.journey-total>div>span { color:var(--text); }
+.comparison-level,.comparison-card,.week-card,.workout-extras,.part-progress-comparison { border-color:var(--line); }
+.comparison-level { background:var(--surface); }
+.comparison-level.has-growth { background:var(--accent-soft); }
+.comparison-pair figcaption,.comparison-pair figcaption span,.comparison-caption,.journey-heading>p:last-child,.exercise-last,.nutrition-message { color:var(--text-muted); }
