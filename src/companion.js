@@ -203,7 +203,7 @@ export function recordFeedback(beforeState, afterState, event, date = today(), {
 export function recentFeedback(state, date = today()) {
   // 同じミリ秒に複数セットを保存した場合は、配列の後ろに追加した行を直近1件とする。
   const recent = [...state.workouts.map(r => ({ record: r, kind: 'workout' })), ...state.meals.map(r => ({ record: r, kind: 'meal' }))]
-    .reverse().sort((a, b) => b.record.createdAt.localeCompare(a.record.createdAt))[0];
+    .reverse().sort((a, b) => Date.parse(b.record.createdAt) - Date.parse(a.record.createdAt))[0];
   if (!recent) return null;
   const key = recent.kind === 'workout' ? 'workouts' : 'meals';
   const before = { ...state, [key]: state[key].filter(r => r.id !== recent.record.id) };

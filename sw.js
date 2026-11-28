@@ -1,5 +1,5 @@
 // Bump this version whenever an app-shell asset changes.
-const CACHE = 'sodatekin-app-v0111';
+const CACHE = 'sodatekin-app-v0112';
 // Reuse the previous cache in place so a catalog update needs no second copy of the 25 MB model/runtime.
 const PHOTO_CACHE = 'sodatekin-app-20261118-v094-meal-photo-1';
 const ASSETS = [

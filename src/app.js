@@ -144,6 +144,7 @@ let selectedMealSlot = suggestedMealSlot();
 const setDraftFoods = new WeakMap();
 let activePartDetail = null, partHistoryLimit = 30;
 let calendarHistoryDay = null;
+let restoringQuickFocus = false;
 let historyFilters = { query: '', kind: '', from: '', to: '' };
 const matchesQuery = (text, query) => query.normalize('NFKC').toLowerCase().trim().split(/\s+/).every(word => text.normalize('NFKC').toLowerCase().includes(word));
 function currentJourney() {
@@ -618,7 +619,9 @@ function render() {
   if (active?.matches('.quick-set-form input')) {
     const form = document.querySelector(`.quick-set-form[data-exercise="${active.form.dataset.exercise}"]`);
     const input = form?.elements.namedItem(active.name);
+    restoringQuickFocus = true;
     input?.focus({ preventScroll:true });
+    restoringQuickFocus = false;
     if (input && weightSelection) input.setSelectionRange(...weightSelection);
   }
   if (active?.matches('.quick-set-form [type=submit]')) document.querySelector(`.quick-set-form[data-exercise="${active.form.dataset.exercise}"] [type=submit]`)?.focus({ preventScroll:true });
@@ -1783,7 +1786,12 @@ document.addEventListener('submit', event => {
       const weight = readQuickWeight(form);
       const record = makeWorkout(state, exerciseId, { count:input.valueAsNumber, sets:1, weight });
       next.workouts.push(record);
+      // 初回の記録で上に「最近やった種目」が出ると入力欄が下がり、下部タブの裏に隠れる。記録前と同じ画面位置に戻す。
+      const anchorTop = form.closest('#modal') ? null : form.getBoundingClientRect().top;
       commit(next, `${exById(exerciseId).name}を1セット記録。`, { celebrate:true, close:!!form.closest('#modal'), originElement:form.querySelector('[type=submit]'), event:{ kind:'workout', id:record.id } });
+      const moved = anchorTop === null ? null : document.querySelector(`main .quick-set-form[data-exercise="${exerciseId}"]`);
+      const shift = moved ? moved.getBoundingClientRect().top - anchorTop : 0;
+      if (Math.abs(shift) > 1) window.scrollBy({ top: shift, behavior: 'instant' });
     } else if (form.id === 'timer-form') { restTimer.start(Number(data.get('seconds'))); closeModal();
     } else if (form.id === 'workout-form') {
       const existing = state.workouts.find(r => r.id === form.dataset.record);
@@ -1907,7 +1915,8 @@ document.addEventListener('mouseup', event => {
   enteringQuickField = null;
 });
 document.addEventListener('focusin', event => {
-  if (event.target.matches('.quick-set-form input')) event.target.select();
+  // 再描画で入力中の欄にフォーカスを戻すときは全選択しない（次の1文字で値が置き換わるため）。
+  if (event.target.matches('.quick-set-form input') && !restoringQuickFocus) event.target.select();
   if (event.target.id === 'food-search') {
     foodSearchFullHeight = Math.max(innerHeight, window.visualViewport?.height ?? 0);
     toggleFoodResults(true);

@@ -6,7 +6,7 @@ import { storyMemories } from './story-memory.js';
 const dateLabel = (date, current) => `${date.slice(0, 4) === current.slice(0, 4) ? '' : `${date.slice(0, 4)}年`}${Number(date.slice(5, 7))}月${Number(date.slice(8))}日`;
 // 実施日を優先。過去入力を「いちばん最近したこと」と取り違えない。
 const ordered = records => records.map((record, index) => ({ record, index })).sort((a, b) =>
-  a.record.date.localeCompare(b.record.date) || a.record.createdAt.localeCompare(b.record.createdAt) || a.index - b.index).map(item => item.record);
+  a.record.date.localeCompare(b.record.date) || Date.parse(a.record.createdAt) - Date.parse(b.record.createdAt) || a.index - b.index).map(item => item.record);
 
 /**
  * 任意の短い会話。記録、選択、現在の日付だけから作り、読む操作を実績にしない。
