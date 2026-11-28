@@ -215,8 +215,16 @@
 .record-calendar, .calendar-weekdays { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 2px; text-align: center; }
 .calendar-weekdays { margin-top: 12px; }
 .record-calendar { margin: 4px 0; padding: 0; list-style: none; }
-.record-calendar li { padding: 4px 0; border-top: 1px solid var(--line); font-variant-numeric: tabular-nums; }
-.record-calendar small { display: block; min-height: 12px; font-size: 9px; color: var(--accent); }
+.record-calendar li { min-width: 0; border-top: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.calendar-date { display: grid; align-content: center; width: 100%; min-height: 44px; padding: 2px 0; line-height: 1.3; }
+.record-calendar button { border-radius: 7px; }
+.calendar-continued { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+.calendar-rest { background: transparent; color: var(--text-muted); box-shadow: inset 0 0 0 1px var(--text-muted); }
+.record-calendar button:hover { text-decoration: underline; text-underline-offset: 2px; }
+.record-calendar button:focus-visible { position: relative; z-index: 1; outline: 2px solid var(--text); outline-offset: 1px; }
+.calendar-date[aria-current="date"] > span[aria-hidden] { text-decoration: underline; text-underline-offset: 2px; }
+.record-calendar small { display: block; min-height: 12px; font-size: 9px; color: var(--text-muted); }
+.calendar-continued small { color: var(--accent-ink); }
 .calendar-key { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 8px; }
 .view-journey > .comparison-card { margin-bottom: 16px; }
 .partner-archive > summary { cursor: pointer; }

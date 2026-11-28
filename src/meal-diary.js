@@ -34,3 +34,25 @@ export function reusableMeals(meals, date, slot) {
   const order = [...Object.keys(MEAL_SLOTS), undefined];
   return [...groups.values()].sort((a, b) => b.date.localeCompare(a.date) || order.indexOf(a.slot) - order.indexOf(b.slot));
 }
+
+function mealPortionKey(meal) {
+  return JSON.stringify([
+    meal.name.normalize('NFKC').trim(), meal.amount || '', meal.portions ?? 1,
+    meal.kcal ?? null, meal.protein ?? null, meal.fat ?? null, meal.carbs ?? null,
+  ]);
+}
+
+// Match each already logged serving only once, including when a source meal contains two identical cups.
+export function alreadyLoggedPortions(source, destination) {
+  const available = new Map();
+  for (const meal of destination) {
+    const key = mealPortionKey(meal);
+    available.set(key, (available.get(key) || 0) + 1);
+  }
+  return source.map(meal => {
+    const key = mealPortionKey(meal), count = available.get(key) || 0;
+    if (!count) return false;
+    available.set(key, count - 1);
+    return true;
+  });
+}

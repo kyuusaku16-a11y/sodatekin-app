@@ -7,6 +7,13 @@ import { growthStage, partLevel } from './growth.js';
 export const DAY_MILESTONES = [3, 7, 14, 30, 50, 100, 250, 365, 500, 1000];
 const rounded = n => Math.round(n * 1e8) / 1e8;
 
+export function newestHistoryFirst(a, b) {
+  const byDay = b.date.localeCompare(a.date);
+  if (byDay) return byDay;
+  if (a.kind === 'rest' || b.kind === 'rest') return Number(a.kind === 'rest') - Number(b.kind === 'rest');
+  return Date.parse(b.createdAt) - Date.parse(a.createdAt);
+}
+
 // Derived from the current ledger, never stored separately. One memory per day
 // keeps the first record, body changes and day milestones from flooding the UI.
 export function journeyOf(state, date = today(), summary = derive(state, date)) {

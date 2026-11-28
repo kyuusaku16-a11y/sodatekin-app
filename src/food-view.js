@@ -2,7 +2,7 @@ import { calorieComparison } from './calorie-view.js';
 import { FOODS, NUTRIENTS, PORTIONS, mealNutrition, nutrientText, portionLabel } from './foods.js';
 import { DISH_GROUPS, homeOf, outOf } from './food-catalog.js';
 import { icon } from './character.js';
-import { MEAL_SLOTS, mealSlotLabel } from './meal-diary.js';
+import { MEAL_SLOTS, mealSlotLabel, alreadyLoggedPortions } from './meal-diary.js';
 
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const aliases = {
@@ -44,8 +44,8 @@ export function foodGroup(food) {
 export function foodFilters(foods, active) {
   const groups = ['', ...Object.keys(DISH_GROUPS)];
   if (active === customGroup || foods.some(f => foodGroup(f) === customGroup)) groups.push(customGroup);
-  return `<div class="part-filters food-filters" role="group" aria-label="料理の種類">${groups.map(group =>
-    `<button type="button" data-action="filter-food" data-id="${group}" aria-pressed="${group === active}">${group || 'すべて'}</button>`).join('')}</div>`;
+  return `<select id="food-category" aria-label="料理の種類で絞り込む" aria-controls="food-results">${groups.map(group =>
+    `<option value="${esc(group)}"${group === active ? ' selected' : ''}>${esc(group || 'すべての種類')}</option>`).join('')}</select>`;
 }
 // 旧データでは外食版が末尾に追加される。両方が候補なら家庭版の位置でまとめる。
 function pairedFoodOrder(foods) {
@@ -116,7 +116,7 @@ export function mealEntryCard({ meals, selected, finder, previous, previousDateL
     ${repeat}${canReuse ? button(previous ? 'pick-meal-history' : 'meal-reuse', previous ? '別の履歴から選ぶ' : '履歴から使う', { class: 'text-button meal-history-link' }) : ''}</div></section>`;
 }
 
-export function mountMealReuse(form, groups, slot, onSave) {
+export function mountMealReuse(form, groups, slot, onSave, destinationMeals = []) {
   const source = form.elements.source;
   source.innerHTML = groups.map((group, i) =>
     `<option value="${i}">${group.date}　${mealSlotLabel(group.slot)}（${group.meals.length}品）</option>`).join('');
@@ -128,9 +128,12 @@ export function mountMealReuse(form, groups, slot, onSave) {
   }));
   function updateRows() {
     const group = groups[source.selectedIndex];
-    rows.innerHTML = group.meals.map((meal, i) =>
-      `<div class="set-choice"><label class="checkbox-field"><input type="checkbox" value="${i}" ${group.slot ? 'checked' : ''}>${esc(meal.name)}</label>
-      <select aria-label="${esc(meal.name)}の量" ${group.slot ? '' : 'disabled'}>${portionOptions(meal.amount, meal.portions ?? 1)}</select></div>`).join('');
+    const logged = alreadyLoggedPortions(group.meals, destinationMeals);
+    rows.innerHTML = group.meals.map((meal, i) => {
+      const checked = group.slot && !logged[i];
+      return `<div class="set-choice"><label class="checkbox-field"><input type="checkbox" value="${i}" ${checked ? 'checked' : ''}><span>${esc(meal.name)}${logged[i] ? '<small class="meal-already-logged">同じ量を記録済み</small>' : ''}</span></label>
+        <select aria-label="${esc(meal.name)}の量" ${checked ? '' : 'disabled'}>${portionOptions(meal.amount, meal.portions ?? 1)}</select></div>`;
+    }).join('');
   }
   function updateTotals() {
     const items = selectedItems();
@@ -168,13 +171,16 @@ export function foodResults(foods, meals, query, expanded, button, group = '') {
   matches = pairedFoodOrder(matches);
   if (!query.trim()) {
     const lastUsed = new Map();
-    for (const r of meals) if (r.createdAt > (lastUsed.get(r.foodId) || '')) lastUsed.set(r.foodId, r.createdAt);
+    for (const meal of meals) {
+      const time = Date.parse(meal.createdAt);
+      if (!lastUsed.has(meal.foodId) || time > lastUsed.get(meal.foodId)) lastUsed.set(meal.foodId, time);
+    }
     const rank = food => {
       if (group) return dishIds.has(food.id) ? 0 : 1;
       const index = firstSuggestions.indexOf(food.id);
       return index === -1 ? firstSuggestions.length : index;
     };
-    matches.sort((a, b) => (lastUsed.get(b.id) || '').localeCompare(lastUsed.get(a.id) || '') || rank(a) - rank(b));
+    matches.sort((a, b) => (lastUsed.get(b.id) ?? Number.MIN_SAFE_INTEGER) - (lastUsed.get(a.id) ?? Number.MIN_SAFE_INTEGER) || rank(a) - rank(b));
   }
   const visible = expanded ? matches : matches.slice(0, query.trim() || group ? 15 : firstSuggestions.length);
   const rows = visible.map(f => `<div class="food-result">

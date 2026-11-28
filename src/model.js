@@ -36,7 +36,12 @@ export function emptyState() {
 export function uniqueRecords(records) { return [...new Map(records.map(record => [record.id, record])).values()]; }
 export function lastWorkout(state, exerciseId) {
   // 同時に保存したセットはcreatedAtが同じになる。配列の後の行を直近として使う。
-  return state.workouts.reduce((last, record) => record.exerciseId === exerciseId && (!last || record.date > last.date || (record.date === last.date && record.createdAt >= last.createdAt)) ? record : last, undefined);
+  let last;
+  for (const row of state.workouts) {
+    if (row.exerciseId !== exerciseId) continue;
+    if (!last || row.date > last.date || (row.date === last.date && Date.parse(row.createdAt) >= Date.parse(last.createdAt))) last = row;
+  }
+  return last;
 }
 export function workoutDefaults(state, exerciseId) {
   const ex = exerciseById(state, exerciseId);

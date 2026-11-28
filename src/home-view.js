@@ -31,12 +31,17 @@ export function recordButtons({ weightKg, mealCount, workoutCount }) {
   ).join('')}</div>`;
 }
 
-export function calorieCard(nutrition, target) {
+export function calorieCard(nutrition, target, mealCount) {
   const macros = NUTRIENTS.filter(({ key }) => key !== 'kcal');
-  const edit = target === null ? '' : '<button type="button" class="text-button calorie-edit" data-action="calorie-setup">目安を変更</button>';
-  return `<section class="calorie-card"><div class="calorie-heading"><h2>今日のカロリー</h2>${edit}</div>
+  const edit = `<button type="button" class="text-button calorie-edit" data-action="calorie-setup">${target === null ? '目安を出す' : '目安を変更'}</button>`;
+  const heading = `<div class="calorie-heading"><h2>今日のカロリー</h2>${target !== null || mealCount === 0 ? edit : ''}</div>`;
+  if (mealCount === 0) {
+    const goal = target === null ? '' : `<small>1日の目安 ${esc(target.toLocaleString('ja-JP'))} kcal</small>`;
+    return `<section class="calorie-card">${heading}<div class="calorie-empty"><span>食事の記録はまだありません</span>${goal}</div></section>`;
+  }
+  return `<section class="calorie-card">${heading}
     <div class="calorie-total">${target === null
-      ? `<strong>${esc(nutrientText(nutrition.kcal, 'kcal'))}</strong><button type="button" class="text-button" data-action="calorie-setup">目安を出す</button>`
+      ? `<strong>${esc(nutrientText(nutrition.kcal, 'kcal'))}</strong>${edit}`
       : calorieComparison(nutrition.kcal, target)}</div>
     <dl>${macros.map(({ key, label }) => `<div><dt>${label}</dt><dd>${esc(nutrientText(nutrition[key], key))}</dd></div>`).join('')}</dl></section>`;
 }

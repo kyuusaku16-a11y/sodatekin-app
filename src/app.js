@@ -20,8 +20,8 @@ import { foodGroup, foodFilters, foodMatches, foodResults, dailyNutrition, nutri
 import { characterSVG, icon, paintCharacters } from './character.js';
 import { partShape, clampShape, SHAPE_ANCHORS, SHAPE_NAMES } from './character-mesh.js';
 import { recordFeedback, recentFeedback, companionVoice } from './companion.js';
-import { journeyOf, weekOf } from './journey.js';
-import { journeyPage, journeyPeek, exerciseHistoryContent } from './journey-view.js';
+import { journeyOf, weekOf, newestHistoryFirst } from './journey.js';
+import { journeyPage, journeyPeek, exerciseHistoryContent, dayHistoryScrollOffset } from './journey-view.js';
 import { createRestTimer } from './timer-view.js';
 import { offlineState, watchOffline, enableOffline, installApp, updateOffline, checkOfflineUpdate } from './offline.js';
 import { APP_VERSION } from './version.js';
@@ -143,6 +143,7 @@ let foodQuery = '', foodCategory = '', expandedFoods = false, foodBrowseOpen = f
 let selectedMealSlot = suggestedMealSlot();
 const setDraftFoods = new WeakMap();
 let activePartDetail = null, partHistoryLimit = 30;
+let calendarHistoryDay = null;
 let historyFilters = { query: '', kind: '', from: '', to: '' };
 const matchesQuery = (text, query) => query.normalize('NFKC').toLowerCase().trim().split(/\s+/).every(word => text.normalize('NFKC').toLowerCase().includes(word));
 function currentJourney() {
@@ -384,7 +385,7 @@ function quickSetCard(ex, inList = false) {
   const reference = referenceText ? `<p class="set-reference">${referenceText}</p>` : '';
   const heading = inList ? `<strong class="list-set-number">${draft ? '入力の続き' : `${todaySets + 1}セット目を入力`}</strong>` : `<strong>${esc(ex.name)}</strong>`;
   const growth = inList && !draft ? oneSetGrowthView(ex) : '';
-  return `<div class="quick-set-card"><div class="set-heading">${heading}<div>${todayLink}${draft ? '' : details}</div></div>${growth}${reference}${controls}${inList ? workoutListReceipt(ex, last) : ''}</div>`;
+  return `<div class="quick-set-card"><div class="set-heading">${heading}<div>${todayLink}${draft ? '' : details}</div></div>${reference}${controls}${inList ? workoutListReceipt(ex, last) : ''}${growth}</div>`;
 }
 function readQuickWeight(form) {
   const field = form.elements.weight;
@@ -433,7 +434,7 @@ function recordsList(records, compact = false, inMealGroup = false) {
   }).join('')}</div>`;
 }
 function allRecords() {
-  return [...state.weights.map(r => ({ ...r, kind: 'weight', name: `体重 ${r.kg.toFixed(1)}kg` })), ...state.workouts.map(r => ({ ...r, kind: 'workout' })), ...state.meals.map(r => ({ ...r, kind: 'food' })), ...state.restDays.map(date => ({ id: `rest:${date}`, date, createdAt: date, kind: 'rest' }))].sort((a, b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt));
+  return [...state.weights.map(r => ({ ...r, kind: 'weight', name: `体重 ${r.kg.toFixed(1)}kg` })), ...state.workouts.map(r => ({ ...r, kind: 'workout' })), ...state.meals.map(r => ({ ...r, kind: 'food' })), ...state.restDays.map(date => ({ id: `rest:${date}`, date, createdAt: date, kind: 'rest' }))].sort(newestHistoryFirst);
 }
 function latestKg() {
   return latestWeight(state, today())?.kg;
@@ -451,7 +452,7 @@ function home() {
     <div class="hero-home diet-home${first ? ' first-record' : ''}">${characterCard(overlay)}
       ${recordButtons(todayChecks(state, day))}
       <div class="home-record-result">${feedbackPanel()}${stageArrival()}</div>
-      ${calorieCard(summary.nutrition, currentCalorieTarget())}
+      ${calorieCard(summary.nutrition, currentCalorieTarget(), summary.todayMeals.length)}
       <div class="diet-journey-strip">${storyPeek(story)}${journeyPeek(journey)}</div>
       ${installAdvice()}${homeToday()}</div>`;
 }
@@ -501,16 +502,14 @@ function foodPage() {
   const diary = [...Object.keys(MEAL_SLOTS), undefined].map(slot => {
     const meals = summary.todayMeals.filter(r => r.mealSlot === slot);
     if (!meals.length) return '';
-    const rows = meals.sort((a, b) => b.createdAt.localeCompare(a.createdAt)).map(r => ({ ...r, kind: 'food' }));
+    const rows = meals.sort(newestHistoryFirst).map(r => ({ ...r, kind: 'food' }));
     return `<section class="meal-log-group" id="meal-log-${slot || 'unassigned'}" tabindex="-1"><h3>${mealSlotLabel(slot)} <small>${meals.length}品</small></h3>${recordsList(rows, false, true)}</section>`;
   }).join('');
   const previous = previousMeal(state.meals, lastDate, selectedMealSlot);
-  const finder = `<label class="food-search">${icon('search')}<input type="search" id="food-search" aria-label="料理名・食品名で検索" aria-controls="food-catalog" placeholder="料理・食品を検索（例：豚汁）" value="${esc(foodQuery)}"></label>
-    ${button('new-food', '包装の表示から登録', { class: 'text-button', icon: 'plus' })}
-    <details id="food-catalog" ${foodBrowseOpen ? 'open' : ''}><summary>食品一覧（${state.foods.length}品）</summary>
-      ${foodFilters(state.foods, foodCategory)}
-      <div id="food-results">${foodResults(state.foods, state.meals, foodQuery, expandedFoods, button, foodCategory)}</div>
-    </details><div class="food-entry-tools"><span id="ingredient-link">${ingredientLink()}</span>${button('quick-meal-entry', '食品名だけで記録', { class: 'text-button' })}</div>`;
+  const finder = `<label class="food-search">${icon('search')}<input type="search" id="food-search" aria-label="料理名・食品名で検索" aria-controls="food-results" placeholder="料理・食品を検索（例：豚汁）" value="${esc(foodQuery)}"></label>
+    <div class="food-catalog-bar"><button type="button" class="text-button" data-action="food-browse" aria-expanded="${foodBrowseOpen}" aria-controls="food-results">食品一覧（${state.foods.length}品）</button>${foodFilters(state.foods, foodCategory)}</div>
+    <div id="food-results" aria-label="料理・食品の候補" role="region"${foodBrowseOpen ? '' : ' hidden'}>${foodResults(state.foods, state.meals, foodQuery, expandedFoods, button, foodCategory)}</div>
+    <div class="food-entry-tools">${button('new-food', '包装の表示から登録', { class: 'text-button', icon: 'plus' })}<span id="ingredient-link">${ingredientLink()}</span>${button('quick-meal-entry', '食品名だけで記録', { class: 'text-button' })}</div>`;
   const canReuse = state.meals.some(meal => meal.date !== lastDate || meal.mealSlot !== selectedMealSlot);
   return `${pageHeading('食事', '食べたものと量から、栄養を自動で集計します。')}
     ${mealEntryCard({ meals: summary.todayMeals, selected: selectedMealSlot, finder, previous, previousDateLabel: previous && labelDate(previous.date), canReuse, button })}
@@ -533,12 +532,39 @@ function openMealReuse() {
     if (date !== today()) { refreshDate(); return; }
     const records = items.map(({ food, portions }) => makeMeal(food, date, portions, slot));
     saveMeals(clone(state), records, records.length + '品', true);
-  });
+  }, summary.todayMeals.filter(meal => meal.mealSlot === slot));
+}
+function toggleFoodResults(open) {
+  foodBrowseOpen = open;
+  $('[data-action="food-browse"]').setAttribute('aria-expanded', String(open));
+  $('#food-results').hidden = !open;
 }
 function updateFoodResults() {
   $('#ingredient-link').innerHTML = ingredientLink();
   $('#food-results').innerHTML = foodResults(state.foods, state.meals, foodQuery, expandedFoods, button, foodCategory);
 }
+let foodSearchFullHeight = 0, foodScrollFrame = 0;
+function showFoodCandidateAboveKeyboard() {
+  if (foodScrollFrame || document.activeElement?.id !== 'food-search' || !foodQuery.trim()) return;
+  const viewport = window.visualViewport;
+  if (!viewport || viewport.scale > 1.05 || foodSearchFullHeight - viewport.height < 100) return;
+  foodScrollFrame = requestAnimationFrame(() => {
+    foodScrollFrame = 0;
+    const input = document.activeElement;
+    if (input?.id !== 'food-search' || !input.value.trim() || !foodBrowseOpen || foodSearchFullHeight - viewport.height < 100) return;
+    const first = $('#food-results [data-action="quick-food"], #food-results .custom-food-add');
+    if (!first) return;
+    const top = viewport.offsetTop;
+    const nav = $('.sidebar').getBoundingClientRect();
+    const bottom = Math.min(top + viewport.height, nav.top > top ? nav.top : Infinity);
+    const hidden = first.getBoundingClientRect().bottom - (bottom - 12);
+    const room = input.getBoundingClientRect().top - (top + 8);
+    const distance = Math.min(hidden, room);
+    if (distance > 1) window.scrollBy({ top: distance, behavior: 'instant' });
+  });
+}
+window.visualViewport?.addEventListener('resize', showFoodCandidateAboveKeyboard);
+
 function ingredientLink() {
   const count = findIngredients(foodQuery, state.foods).length;
   if (!count) return '';
@@ -984,7 +1010,7 @@ function updateWorkoutPreview() {
 }
 function recentMealChoices() {
   const seen = new Set(), buttons = [];
-  for (const meal of [...state.meals].sort((a, b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt))) {
+  for (const meal of [...state.meals].sort(newestHistoryFirst)) {
     const name = meal.name.normalize('NFKC').trim();
     if (seen.has(name)) continue;
     seen.add(name);
@@ -1108,9 +1134,14 @@ function filterExercises(openSingle = false) {
   $('.clear-exercise-search').hidden = !(exerciseQuery || exercisePart || customOnly);
 }
 function historyResults() {
-  const {query,kind,from,to} = historyFilters;
+  const {query,kind,from,to} = calendarHistoryDay ? {query:'', kind:'', from:calendarHistoryDay, to:calendarHistoryDay} : historyFilters;
   if (from && to && from > to) return '<p class="history-empty" role="status">開始日は終了日より前にしてください。</p>';
   const records = allRecords().filter(r => (!kind || r.kind === kind) && (!from || r.date >= from) && (!to || r.date <= to) && matchesQuery(`${r.kind === 'workout' ? exById(r.exerciseId).name : r.kind === 'rest' ? '休養' : r.name} ${r.memo || ''} ${r.date}`,query));
+  if (calendarHistoryDay) {
+    if (!records.length) return '<p class="history-empty">この日の記録はありません。</p>';
+    const more = records.length > historyLimit ? button('more-history', 'さらに30件を見る', { class:'button button-light history-more' }) : '';
+    return recordsList(records.slice(0, historyLimit)) + more;
+  }
   const groups = new Map();
   records.slice(0,historyLimit).forEach(r=>{ if(!groups.has(r.date)) groups.set(r.date,[]); groups.get(r.date).push(r); });
   return `<p class="history-result-count" role="status">${records.length}件${records.length > historyLimit ? `のうち${historyLimit}件を表示` : ''}</p>${records.length ? [...groups].map(([date,rows])=>`<section class="history-day"><h3><time datetime="${date}">${date.replaceAll('-',' / ')} <span>${labelDate(date)}</span></time><small>${rows.length}件</small></h3>${recordsList(rows)}</section>`).join('') : '<div class="history-empty">条件に合う記録はありません。<br>検索語や期間を変えてみてください。</div>'}${records.length>historyLimit ? button('more-history','さらに30件を見る',{class:'button button-light history-more'}) : ''}`;
@@ -1119,8 +1150,15 @@ function updateHistory() {
   const el = $('#history-results'); if (!el) return;
   el.innerHTML = historyResults();
 }
-function historyModal() {
-  openModal('これまでの足あと', '編集や削除をすると、経験値と思い出も計算し直します。', `<div class="history-summary"><span>体重 <b>${state.weights.length}</b> 件</span><span>筋トレ <b>${state.workouts.length}</b> 件</span><span>食事 <b>${state.meals.length}</b> 件</span><span>一緒に <b>${summary.workoutDays}</b> 日</span></div><div class="history-filters"><label class="search-field">${icon('search')}<input type="search" id="history-search" aria-label="記録を検索" placeholder="体重・種目・食品・メモで検索" value="${esc(historyFilters.query)}"></label><div class="history-filter-row"><label>種類<select id="history-kind">${[['','すべて'],['weight','体重'],['food','食事'],['workout','筋トレ'],['rest','休養']].map(([id,name])=>`<option value="${id}" ${historyFilters.kind===id?'selected':''}>${name}</option>`).join('')}</select></label><label>開始日<input id="history-from" type="date" value="${historyFilters.from}" max="${today()}"></label><label>終了日<input id="history-to" type="date" value="${historyFilters.to}" max="${today()}"></label></div>${button('clear-history','検索条件をリセット',{class:'text-button'})}</div><div id="history-results"></div>`, true);
+function historyModal(day = null) {
+  calendarHistoryDay = day;
+  if (day) {
+    const dateLabel = new Intl.DateTimeFormat('ja-JP', {dateStyle:'long', timeZone:'Asia/Tokyo'}).format(new Date(day + 'T00:00:00Z'));
+    openModal(dateLabel + 'の記録', '', '<div id="history-results" class="day-history" tabindex="-1"></div>', true);
+    updateHistory();
+    return;
+  }
+  openModal('これまでの足あと', '編集や削除をすると、経験値と思い出も計算し直します。', `<div class="history-summary"><span>体重 <b>${state.weights.length}</b> 件</span><span>筋トレ <b>${state.workouts.length}</b> 件</span><span>食事 <b>${state.meals.length}</b> 件</span><span>続いた日 <b>${currentJourney().journey.days}</b> 日</span></div><div class="history-filters"><label class="search-field">${icon('search')}<input type="search" id="history-search" aria-label="記録を検索" placeholder="体重・種目・食品・メモで検索" value="${esc(historyFilters.query)}"></label><div class="history-filter-row"><label>種類<select id="history-kind">${[['','すべて'],['weight','体重'],['food','食事'],['workout','筋トレ'],['rest','休養']].map(([id,name])=>`<option value="${id}" ${historyFilters.kind===id?'selected':''}>${name}</option>`).join('')}</select></label><label>開始日<input id="history-from" type="date" value="${historyFilters.from}" max="${today()}"></label><label>終了日<input id="history-to" type="date" value="${historyFilters.to}" max="${today()}"></label></div>${button('clear-history','検索条件をリセット',{class:'text-button'})}</div><div id="history-results"></div>`, true);
   updateHistory();
 }
 function attachHistoryReturn(scroll) {
@@ -1131,23 +1169,30 @@ function attachHistoryReturn(scroll) {
   cancel.dataset.action = 'history-back';
   cancel.textContent = '一覧に戻る';
 }
-function showEditedHistory(id, scroll, message = '', undo = false) {
-  historyModal();
-  const row = [...$('#history-results').querySelectorAll('[data-action="edit-record"]')].find(el => el.dataset.id === id);
+function restoreHistory(id, scroll, { message = '', undo = false, focusAction = 'edit-record' } = {}) {
+  historyModal(calendarHistoryDay);
   const results = $('#history-results');
+  const row = [...results.querySelectorAll(`[data-action="${focusAction}"]`)].find(el => el.dataset.id === id);
+  let notice;
   if (message) {
-    const notice = document.createElement('div');
+    notice = document.createElement('div');
     notice.className = 'history-edit-notice';
     notice.innerHTML = `<span role="status">${esc(message)}${row ? '' : ' 現在の表示範囲から外れました。'}</span>${undo ? button('history-undo-edit', '訂正を取り消す', { id, class:'text-button' }) : ''}`;
     if (row) row.closest('.record-row').before(notice); else results.prepend(notice);
   }
-  $('#modal').scrollTop = row ? scroll : 0;
-  (row || $('#history-search')).focus({ preventScroll:true });
+  const modal = $('#modal');
+  modal.scrollTop = row ? scroll : 0;
+  (row || $('#history-search') || results).focus({ preventScroll:true });
+  if (row) {
+    const headerBottom = modal.querySelector('.modal-header').getBoundingClientRect().bottom;
+    const dialogBottom = modal.getBoundingClientRect().bottom;
+    modal.scrollTop += dayHistoryScrollOffset(row.getBoundingClientRect(), headerBottom + 4, dialogBottom - 4, notice?.getBoundingClientRect().top);
+  }
 }
 function saveRecordEdit(form, next, record, date, message) {
   const scroll = editingDrafts.get(form)?.historyScroll;
   const saved = commit(next, message, { close: scroll === undefined, event: { kind:'edit', id:record.id, date } });
-  if (saved && scroll !== undefined) showEditedHistory(record.id, scroll, message, true);
+  if (saved && scroll !== undefined) restoreHistory(record.id, scroll, { message, undo:true });
 }
 function forecastMarkup(id) {
   const f = growthForecast(state, id, today(), summary);
@@ -1362,6 +1407,9 @@ document.addEventListener('click', event => {
       else if (records.length) openModal(`今日の${exById(itemId).name}`, `${records.length}件の記録`, recordsList(records));
       break;
     }
+    case 'calendar-day':
+      target.focus({ preventScroll:true });
+      historyLimit = 30; historyModal(itemId); $('#modal').scrollTop = 0; break;
     case 'history': historyLimit = 30; historyModal(); break;
     case 'receipt-history': { const result = visibleFeedback(); if (!result) break; historyFilters = { query: '', kind: result.kind === 'workout' ? 'workout' : result.kind === 'meal' ? 'food' : '', from: result.date, to: result.date }; historyLimit = 30; historyModal(); break; }
     case 'more-history': historyLimit += 30; updateHistory(); break;
@@ -1568,10 +1616,7 @@ document.addEventListener('click', event => {
     case 'meal-reuse': openMealReuse(); break;
     case 'quick-food': { const food = state.foods.find(f => f.id === itemId); if (food) saveMeals(next, [makeMeal(food, today(), 1, tab === 'food' ? selectedMealSlot : suggestedMealSlot())], food.name, false); break; }
     case 'ingredient-picker': openIngredientPicker(); break;
-    case 'filter-food':
-      foodCategory = target.dataset.id; expandedFoods = false;
-      document.querySelectorAll('.food-filters button').forEach(b => b.setAttribute('aria-pressed', String(b === target)));
-      updateFoodResults(); break;
+    case 'food-browse': toggleFoodResults(!foodBrowseOpen); break;
     case 'expand-foods': expandedFoods = !expandedFoods; updateFoodResults(); ($('#food-results [data-action="expand-foods"]') || $('#food-search')).focus({ preventScroll: true }); break;
     case 'today-meals': $('#today-meals').focus({ preventScroll: true }); $('#today-meals').scrollIntoView({ block: 'start' }); break;
     case 'portion-food': portionForm(itemId, 'food'); break;
@@ -1615,19 +1660,25 @@ document.addEventListener('click', event => {
     }
     case 'history-back': {
       const edit = editingDrafts.get(activeEntryForm());
-      if (edit) showEditedHistory(edit.original.id, edit.historyScroll);
+      if (edit) restoreHistory(edit.original.id, edit.historyScroll);
+      break;
+    }
+    case 'history-delete-back': {
+      pendingConfirm = null;
+      restoreHistory(itemId, Number(target.dataset.scroll), { focusAction:'delete-record' });
       break;
     }
     case 'history-undo-edit': {
       if (!recordUndoState) break;
       const scroll = $('#modal').scrollTop;
       if (commit(undoRecordWithSettings(recordUndoState, state), '訂正を取り消しました。', { close:false, resetContext:true, undoable:false })) {
-        quickTaps.clear(); showEditedHistory(itemId, scroll, '訂正を取り消しました。');
+        quickTaps.clear(); restoreHistory(itemId, scroll, { message:'訂正を取り消しました。' });
       }
       break;
     }
     case 'delete-record': {
       const kind = target.closest('.record-row').dataset.kind;
+      const scroll = target.closest('#history-results') ? $('#modal').scrollTop : undefined;
       confirmAction('この記録を削除しますか？', '記録を削除し、経験値・レベル・思い出を再計算します。削除直後は取り消せます。', () => {
         if (kind === 'weight') return commit(removeWeight(next, itemId), '体重の記録を削除しました。');
         if (kind === 'rest') next.restDays = next.restDays.filter(date => date !== itemId.slice(5));
@@ -1635,6 +1686,10 @@ document.addEventListener('click', event => {
         else if (kind === 'workout') next.workouts = next.workouts.filter(row => row.id !== itemId);
         commit(next, '記録を削除しました。');
       });
+      if (scroll !== undefined) {
+        const back = $('#modal .form-actions [data-action="close-modal"]');
+        Object.assign(back.dataset, { action:'history-delete-back', id:itemId, scroll });
+      }
       break;
     }
     case 'rest-day': if (next.restDays.includes(today())) next.restDays = next.restDays.filter(d => d !== today()); else next.restDays.push(today()); commit(next, next.restDays.includes(today()) ? '今日は、ゆっくり整える日に。' : '休養日の記録を取り消しました。', { event: next.restDays.includes(today()) ? { kind: 'rest' } : null }); break;
@@ -1672,7 +1727,6 @@ document.addEventListener('click', event => {
 
 document.addEventListener('toggle', event => {
   if (!event.target.isConnected) return;
-  if (event.target.id === 'food-catalog') foodBrowseOpen = event.target.open;
   if (event.target.matches('.receipt-breakdown')) receiptExpanded = event.target.open;
   if (event.target.matches('.home-today')) homeTodayExpanded = event.target.open;
 }, true);
@@ -1839,9 +1893,26 @@ document.addEventListener('invalid', event => {
   const details = event.target.closest('#workout-form details, .food-details');
   if (details) details.open = true;
 }, true);
+// WebKit places the caret on mouseup, after focus has selected the previous set's value.
+let enteringQuickField = null;
+document.addEventListener('mousedown', event => {
+  const input = event.target;
+  enteringQuickField = event.button === 0 && input !== document.activeElement && input.matches('.quick-set-form input') ? input : null;
+});
+document.addEventListener('mouseup', event => {
+  if (event.target === enteringQuickField) {
+    event.preventDefault();
+    enteringQuickField.select();
+  }
+  enteringQuickField = null;
+});
 document.addEventListener('focusin', event => {
-  if (event.target.matches('.quick-set-form [name=weight]')) event.target.select();
-  if (event.target.id === 'food-search') { foodBrowseOpen = true; $('#food-catalog').open = true; }
+  if (event.target.matches('.quick-set-form input')) event.target.select();
+  if (event.target.id === 'food-search') {
+    foodSearchFullHeight = Math.max(innerHeight, window.visualViewport?.height ?? 0);
+    toggleFoodResults(true);
+    showFoodCandidateAboveKeyboard();
+  }
 });
 document.addEventListener('input', event => {
   if (event.target.closest('#calorie-setup-form, #profile-form')) { updateCaloriePreview(event.target.form); return; }
@@ -1855,7 +1926,7 @@ document.addEventListener('input', event => {
   }
   if (event.target.matches('#favorites-form [name=favorite]')) updateFavoriteSelection();
   if (event.target.id === 'exercise-search') { exerciseQuery = event.target.value; filterExercises(true); }
-  if (event.target.id === 'food-search') { foodQuery = event.target.value; expandedFoods = false; foodBrowseOpen = true; $('#food-catalog').open = true; updateFoodResults(); }
+  if (event.target.id === 'food-search') { foodQuery = event.target.value; expandedFoods = false; toggleFoodResults(true); updateFoodResults(); showFoodCandidateAboveKeyboard(); }
   if (event.target.closest('#food-form')) updateFoodFormPreview();
   if (event.target.closest('#set-form') && (event.target.id === 'set-search' || event.target.name === 'food')) updateSetChoices();
   const historyKey = {'history-search':'query','history-kind':'kind','history-from':'from','history-to':'to'}[event.target.id];
@@ -1870,6 +1941,10 @@ document.addEventListener('input', event => {
   if (event.target.matches('.preview-range input') && event.target.value !== '') { previewStages[event.target.name].shape = Math.round(clampShape(event.target.value)); updatePreview(); }
 });
 document.addEventListener('change', async event => {
+  if (event.target.id === 'food-category') {
+    foodCategory = event.target.value; expandedFoods = false;
+    toggleFoodResults(true); updateFoodResults(); return;
+  }
   if (event.target.id === 'exercise-custom-only') { customOnly = event.target.checked; filterExercises(true); return; }
   if (event.target.matches('#custom-exercise-form [name=unit]')) {
     const form = event.target.form, seconds = event.target.value === '秒';
@@ -1899,8 +1974,13 @@ document.addEventListener('change', async event => {
   finally { input.value = ''; input.disabled = false; }
 });
 $('#modal').addEventListener('click', event => { if (event.target === $('#modal')) { const rect = $('#modal').getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) closeModal(); } });
+$('#modal').addEventListener('cancel', event => {
+  const back = event.currentTarget.querySelector('[data-action="history-back"], [data-action="history-delete-back"]');
+  if (back) { event.preventDefault(); back.click(); }
+});
 $('#modal').addEventListener('close', () => {
   if (!$('#modal').open) {
+    calendarHistoryDay = null;
     releaseMealPhoto();
     $('#modal .workout-sheet')?.remove();
   }

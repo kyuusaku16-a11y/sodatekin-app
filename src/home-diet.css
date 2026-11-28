@@ -105,6 +105,9 @@
 }
 .calorie-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; }
 
+.calorie-empty { display: grid; gap: 4px; color: var(--text-muted); }
+.calorie-empty small { font-variant-numeric: tabular-nums; }
+
 .partner-scene[data-spirit="good"], .partner-scene[data-spirit="great"] {
   outline: 2px solid var(--accent-soft);
   outline-offset: -2px;

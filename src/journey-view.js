@@ -18,6 +18,12 @@ const shortDate = date => `${Number(date.slice(5, 7))}/${Number(date.slice(8))}`
 const fullDate = date => `${date.slice(0, 4)}年${Number(date.slice(5, 7))}月${Number(date.slice(8))}日`;
 const number = n => new Intl.NumberFormat('ja-JP').format(n);
 
+export function dayHistoryScrollOffset(button, headerBottom, dialogBottom, noticeTop = button.top) {
+  if (button.bottom > dialogBottom) return button.bottom - dialogBottom;
+  const top = button.bottom - noticeTop <= dialogBottom - headerBottom ? noticeTop : button.top;
+  return Math.min(0, top - headerBottom);
+}
+
 function exerciseHistoryEntry(days, state) {
   if (!days.length) return '';
   const last = days[0], ex = exerciseById(state, last.exerciseId);
@@ -55,8 +61,16 @@ function calendarSection(state, date, month) {
     const day = shiftDate(first, i);
     const kinds = Object.keys(marks).filter(kind => days.get(day)?.has(kind));
     if (day <= date && (rests.has(day) || isPaused(state, day))) kinds.push('rest');
-    const label = kinds.map(kind => marks[kind][1]).join('・');
-    return `<li${i === 0 ? ` style="grid-column-start:${weekday + 1}"` : ''}><span class="sr-only">${fullDate(day)} ${label || '記録なし'}</span><span aria-hidden="true">${i + 1}</span><small aria-hidden="true">${kinds.map(kind => marks[kind][0]).join('')}</small></li>`;
+    const continued = days.has(day);
+    const recorded = continued || (day <= date && rests.has(day));
+    const labels = kinds.map(kind => kind === 'rest' && !rests.has(day) ? '休養モード' : marks[kind][1]);
+    const label = `${fullDate(day)} ${labels.join('・') || (day > date ? 'これから' : '記録なし')}`;
+    const current = day === date ? ' aria-current="date"' : '';
+    const face = `<span aria-hidden="true">${i + 1}</span><small aria-hidden="true">${kinds.map(kind => marks[kind][0]).join('')}</small>`;
+    const cell = recorded
+      ? `<button type="button" class="calendar-date ${continued ? 'calendar-continued' : 'calendar-rest'}" data-action="calendar-day" data-id="${day}" aria-label="${label}の記録を開く"${current}>${face}</button>`
+      : `<span class="calendar-date"${current}><span class="sr-only">${label}</span>${face}</span>`;
+    return `<li${i === 0 ? ` style="grid-column-start:${weekday + 1}"` : ''}>${cell}</li>`;
   }).join('');
   return `<section class="journey-diet-card"><div class="diet-card-heading"><h2>${year}年${monthNumber}月の続いた日　${days.size}日</h2><div class="month-nav">
     <button type="button" data-action="calendar-month" data-id="prev" aria-label="前月">‹</button>
